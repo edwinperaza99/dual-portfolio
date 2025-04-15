@@ -7,6 +7,13 @@ export const social = defineType({
 	description: "A single social link with an icon, display name, and URL.",
 	fields: [
 		defineField({
+			name: "internalName",
+			title: "Internal Name",
+			type: "string",
+			description:
+				"Optional name for internal reference (e.g. 'Instagram - Personal' or 'Instagram - Business').",
+		}),
+		defineField({
 			name: "icon",
 			title: "Icon",
 			type: "iconPicker",
@@ -32,4 +39,18 @@ export const social = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 	],
+	preview: {
+		select: {
+			internalName: "internalName",
+			displayName: "displayName",
+			link: "link",
+		},
+		prepare({ internalName, displayName, link }) {
+			const title = internalName ? internalName : displayName;
+			return {
+				title,
+				subtitle: link,
+			};
+		},
+	},
 });

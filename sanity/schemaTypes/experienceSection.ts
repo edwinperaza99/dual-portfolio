@@ -14,8 +14,8 @@ export const experienceSection = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			name: "subhead",
-			title: "Subhead",
+			name: "subheader",
+			title: "Subheader",
 			type: "string",
 			description: 'Subtitle of the section (e.g., "Professional Journey")',
 			validation: (Rule) => Rule.required(),
@@ -42,14 +42,20 @@ export const experienceSection = defineType({
 							type: "string",
 						}),
 						defineField({
+							name: "location",
+							title: "Location",
+							type: "string",
+							description: "City, State, Country",
+						}),
+						defineField({
 							name: "startDate",
 							title: "Start Date",
-							type: "date",
+							type: "string",
 						}),
 						defineField({
 							name: "endDate",
 							title: "End Date",
-							type: "date",
+							type: "string",
 						}),
 						defineField({
 							name: "responsibilities",
@@ -69,15 +75,9 @@ export const experienceSection = defineType({
 						},
 						prepare(selection) {
 							const { jobTitle, company, startDate, endDate } = selection;
-							let dateRange = "";
-							if (startDate && endDate) {
-								const start = new Date(startDate).toLocaleDateString();
-								const end = new Date(endDate).toLocaleDateString();
-								dateRange = ` (${start} - ${end})`;
-							}
 							return {
 								title: jobTitle,
-								subtitle: `${company}${dateRange}`,
+								subtitle: `${company} | ${startDate} - ${endDate}`,
 							};
 						},
 					},
@@ -88,15 +88,15 @@ export const experienceSection = defineType({
 	preview: {
 		select: {
 			header: "header",
-			subhead: "subhead",
+			subheader: "subheader",
 			experiences: "experiences",
 		},
 		prepare(selection) {
-			const { header, subhead, experiences } = selection;
+			const { header, subheader, experiences } = selection;
 			const count = experiences ? experiences.length : 0;
 			return {
 				title: header,
-				subtitle: `${subhead} • ${count} experience${count === 1 ? "" : "s"}`,
+				subtitle: `${subheader} • ${count} experience${count === 1 ? "" : "s"}`,
 			};
 		},
 	},

@@ -14,11 +14,11 @@ export const footer = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			name: "subhead",
-			title: "Subhead",
+			name: "subheader",
+			title: "Subheader",
 			type: "string",
 			description:
-				"A subheadline or tagline for the footer (e.g., 'All rights reserved')",
+				"A subheader line or tagline for the footer (e.g., 'All rights reserved')",
 		}),
 		defineField({
 			name: "socials",
@@ -35,16 +35,17 @@ export const footer = defineType({
 	],
 	preview: {
 		select: {
-			name: "name",
-			subhead: "subhead",
+			header: "header",
+			subheader: "subheader",
 			socials: "socials",
 		},
-		prepare(selection) {
-			const { name, subhead, socials } = selection;
-			const count = socials ? socials.length : 0;
+		prepare({ header, subheader, socials }) {
+			const socialCount = socials ? socials.length : 0;
 			return {
-				title: name,
-				subtitle: `${subhead} • ${count} social link${count === 1 ? "" : "s"}`,
+				title: `Footer: ${header}`,
+				subtitle: subheader
+					? `${subheader} • ${socialCount} social${socialCount === 1 ? "" : "s"}`
+					: `${socialCount} social${socialCount === 1 ? "" : "s"}`,
 			};
 		},
 	},
