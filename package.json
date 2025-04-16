@@ -10,6 +10,7 @@
     "typegen": "sanity schema extract --path=sanity/extract.json && sanity typegen generate"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.3",
     "@radix-ui/react-slot": "^1.2.0",
     "@sanity/icons": "^3.7.0",
     "@sanity/image-url": "^1.1.0",

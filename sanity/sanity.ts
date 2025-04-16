@@ -1,13 +1,12 @@
 // import { createClient } from "next-sanity";
-import { ExperienceSection, SkillsSection } from "@/lib/types";
+import {
+	ExperienceSection,
+	SkillsSection,
+	SettingsSEO,
+	FooterData,
+	HeroSectionType,
+} from "@/lib/types";
 import { client } from "@/sanity/lib/client";
-
-// export const client = createClient({
-// 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-// 	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-// 	apiVersion: "2023-05-03",
-// 	useCdn: process.env.NODE_ENV === "production",
-// });
 
 export function sanityFetch<
 	T,
@@ -51,6 +50,87 @@ export async function getSkillsSection(): Promise<SkillsSection> {
       skillName,
       icon
     }
+  }
+}`);
+}
+
+export async function getSettingsSEO(): Promise<SettingsSEO> {
+	return await sanityFetch<SettingsSEO>(
+		`*[_type == "settingsSEO"][0]{
+    siteTitle,
+    siteDescription,
+    applicationName,
+    authors[] {
+      name,
+      url
+    },
+    creator,
+    publisher,
+    defaultKeywords,
+    openGraphUrl,
+    openGraphType,
+    openGraphLocale,
+    openGraphSiteName,
+    openGraphImages[] {
+      asset->{
+        url,
+        metadata {
+          dimensions {
+            width,
+            height
+          }
+        }
+      },
+      alt
+    },
+    twitterCard,
+    twitterImages[] {
+      asset->{
+        url
+      },
+      alt
+    }
+  }`
+	);
+}
+
+export async function getFooterData(): Promise<FooterData> {
+	return await sanityFetch<FooterData>(`*[_type == "footer"][0]{
+  header,
+  subheader,
+  "socialLinks": socials[]->{
+    displayName,
+    link,
+    icon
+  }
+}`);
+}
+
+export async function getHeroSection(): Promise<HeroSectionType> {
+	return await sanityFetch<HeroSectionType>(`*[_type == "hero"][0]{
+  primary {
+    title,
+    name,
+    tagline,
+    primaryCTA,
+    secondaryCTA,
+    "socialLinks": socials[]->{
+        displayName,
+        link,
+        icon
+  }
+  },
+  secondary {
+    title,
+    name,
+    tagline,
+    primaryCTA,
+    secondaryCTA,
+    "socialLinks": socials[]->{
+        displayName,
+        link,
+        icon
+  }
   }
 }`);
 }

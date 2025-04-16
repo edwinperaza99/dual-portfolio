@@ -6,8 +6,9 @@ import { settingsSEO } from "@/sanity/schemaTypes/settingsSEO";
 import { footer } from "@/sanity/schemaTypes/footer";
 import { contactForm } from "@/sanity/schemaTypes/contactForm";
 import { navBar } from "@/sanity/schemaTypes/navBar";
-import { firstHero } from "@/sanity/schemaTypes/firstHero";
-import { secondHero } from "@/sanity/schemaTypes/secondHero";
+import { hero } from "@/sanity/schemaTypes/heroSection";
+import { cta } from "@/sanity/schemaTypes/callToAction";
+import { personaSection } from "@/sanity/schemaTypes/persona";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
 	types: [
@@ -18,7 +19,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 		navBar,
 		footer,
 		settingsSEO,
-		firstHero,
-		secondHero,
+		hero,
+		cta,
+		personaSection,
 	],
 };

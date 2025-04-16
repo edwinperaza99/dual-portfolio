@@ -7,11 +7,13 @@ import {
 } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ChevronRight } from "lucide-react";
-import { getExperienceSection } from "@/sanity/sanity";
+import { ExperienceSection as ExperienceSectionType } from "@/lib/types";
 
-export default async function ExperienceSectionComponent() {
-	const experienceData = await getExperienceSection();
+type Props = {
+	experienceData: ExperienceSectionType;
+};
 
+export default function ExperienceSection({ experienceData }: Props) {
 	return (
 		<section id="experience" className="py-20 relative overflow-hidden">
 			<div className="container mx-auto px-4">

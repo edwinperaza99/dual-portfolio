@@ -1,11 +1,15 @@
 import { SectionHeader } from "@/components/ui/section-header";
 import { Badge } from "@/components/ui/badge";
-import { getSkillsSection } from "@/sanity/sanity";
 import { DynamicIcon } from "@/components/ui/dynamic-icon";
 
-export default async function SkillsSection() {
-	const skillsData = await getSkillsSection();
+import type { SkillsSection } from "@/lib/types";
+import { SkillsSection as SkillsSectionType } from "@/lib/types";
 
+type Props = {
+	skillsData: SkillsSectionType;
+};
+
+export default function SkillsSection({ skillsData }: Props) {
 	return (
 		<section id="skills" className="py-20 relative overflow-hidden">
 			<div className="container mx-auto px-4">
