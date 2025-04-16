@@ -251,7 +251,7 @@ export default function SliderView({
 
 			{/* slider handle */}
 			<div
-				className="absolute top-0 bottom-0 w-0.5 bg-white/80 cursor-ew-resize z-10 backdrop-blur-sm slider-handle"
+				className="absolute top-0 bottom-0 w-0.5 bg-white/80 cursor-ew-resize z-30 backdrop-blur-sm slider-handle"
 				style={{
 					left: `${sliderPosition}%`,
 					boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
