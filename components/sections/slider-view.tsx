@@ -6,7 +6,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { DynamicIcon } from "@/components/ui/dynamic-icon";
+import { DynamicIcon } from "@/lib/dynamic-icon";
 import { HeroSectionType } from "@/lib/types";
 
 // Update the SliderView component to work with the header buttons

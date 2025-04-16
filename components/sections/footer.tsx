@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DynamicIcon } from "@/components/ui/dynamic-icon";
+import { DynamicIcon } from "@/lib/dynamic-icon";
 import { getFooterData } from "@/sanity/sanity";
 
 export default async function Footer() {

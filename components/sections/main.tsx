@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import NavBar from "@/components/ui/nav-bar";
+import NavBar from "@/components/sections/nav-bar";
 // import AboutSection from "@/components/sections/about-section";
 import ExperienceSection from "@/components/sections/experience-section";
 import SkillsSection from "@/components/sections/skills-section";
@@ -33,7 +33,7 @@ export default function Main({ pageData }: Props) {
 	);
 
 	// Add a new ref for the slider position
-	const sliderPositionRef = useRef(0); // Start at 0 for sysadmin
+	const sliderPositionRef = useRef(100); // Start at 100 for sysadmin
 
 	// Fix the slider and button logic to ensure they're in sync
 
@@ -66,7 +66,7 @@ export default function Main({ pageData }: Props) {
 				setActivePersona={handlePersonaChange}
 			/>
 
-			<main className="relative z-10">
+			<main className="relative">
 				{/* Hero Section with Slider */}
 				<SliderView
 					sliderPositionRef={sliderPositionRef}

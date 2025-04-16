@@ -1,6 +1,6 @@
 import { SectionHeader } from "@/components/ui/section-header";
 import { Badge } from "@/components/ui/badge";
-import { DynamicIcon } from "@/components/ui/dynamic-icon";
+import { DynamicIcon } from "@/lib/dynamic-icon";
 
 import type { SkillsSection } from "@/lib/types";
 import { SkillsSection as SkillsSectionType } from "@/lib/types";

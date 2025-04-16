@@ -4,7 +4,7 @@ import {
 	getHeroSection,
 } from "@/sanity/sanity";
 
-import Footer from "@/components/ui/footer";
+import Footer from "@/components/sections/footer";
 import Main from "@/components/sections/main";
 
 export default async function Home() {
