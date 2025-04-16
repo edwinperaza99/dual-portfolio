@@ -7,18 +7,17 @@ export const experienceSection = defineType({
 	description: "Configure the work experience section of your portfolio.",
 	fields: [
 		defineField({
-			name: "header",
-			title: "Header",
+			name: "title",
+			title: "Title",
 			type: "string",
 			description: 'Main title of the section (e.g., "Work Experience")',
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			name: "subheader",
-			title: "Subheader",
+			name: "badge",
+			title: "Badge",
 			type: "string",
-			description: 'Subtitle of the section (e.g., "Professional Journey")',
-			validation: (Rule) => Rule.required(),
+			description: 'Badge of the section (e.g., "Professional Journey")',
 		}),
 		defineField({
 			name: "experiences",
@@ -87,16 +86,16 @@ export const experienceSection = defineType({
 	],
 	preview: {
 		select: {
-			header: "header",
-			subheader: "subheader",
+			title: "title",
+			badge: "badge",
 			experiences: "experiences",
 		},
 		prepare(selection) {
-			const { header, subheader, experiences } = selection;
+			const { title, badge, experiences } = selection;
 			const count = experiences ? experiences.length : 0;
 			return {
-				title: header,
-				subtitle: `${subheader} • ${count} experience${count === 1 ? "" : "s"}`,
+				title: title,
+				subtitle: `${badge} • ${count} experience${count === 1 ? "" : "s"}`,
 			};
 		},
 	},

@@ -6,18 +6,17 @@ export const skillsSection = defineType({
 	type: "document",
 	fields: [
 		defineField({
-			name: "header",
-			title: "Header",
+			name: "title",
+			title: "Title",
 			type: "string",
 			description: 'Main title for the skills section (e.g., "Skills")',
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			name: "subhead",
-			title: "Subhead",
+			name: "badge",
+			title: "Badge",
 			type: "string",
-			description:
-				'Subheader for the skills section (e.g., "Technical Expertise")',
+			description: 'Badge for the skills section (e.g., "Technical Expertise")',
 		}),
 		defineField({
 			name: "categories",
@@ -103,16 +102,16 @@ export const skillsSection = defineType({
 	],
 	preview: {
 		select: {
-			header: "header",
-			subhead: "subhead",
+			title: "title",
+			badge: "badge",
 			categories: "categories",
 		},
 		prepare(selection) {
-			const { header, subhead, categories } = selection;
+			const { title, badge, categories } = selection;
 			const count = categories ? categories.length : 0;
 			return {
-				title: header,
-				subtitle: `${subhead} • ${count} category${count === 1 ? "" : "s"}`,
+				title: title,
+				subtitle: `${badge} • ${count} category${count === 1 ? "" : "s"}`,
 			};
 		},
 	},

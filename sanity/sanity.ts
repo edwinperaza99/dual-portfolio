@@ -1,11 +1,13 @@
-import { createClient } from "next-sanity";
+// import { createClient } from "next-sanity";
+import { ExperienceSection, SkillsSection } from "@/lib/types";
+import { client } from "@/sanity/lib/client";
 
-export const client = createClient({
-	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-	apiVersion: "2023-05-03",
-	useCdn: process.env.NODE_ENV === "production",
-});
+// export const client = createClient({
+// 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+// 	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+// 	apiVersion: "2023-05-03",
+// 	useCdn: process.env.NODE_ENV === "production",
+// });
 
 export function sanityFetch<
 	T,
@@ -23,10 +25,10 @@ export function sanityFetch<
 	});
 }
 
-export async function getExperienceSection() {
-	return sanityFetch(`*[_type == "experienceSection"]{
-  header,
-  subheader,
+export async function getExperienceSection(): Promise<ExperienceSection> {
+	return await sanityFetch<ExperienceSection>(`*[_type == "experienceSection"][0]{
+  title,
+  badge,
   experiences[]{
     jobTitle,
     company,
@@ -34,6 +36,21 @@ export async function getExperienceSection() {
     startDate,
     endDate,
     responsibilities
+  }
+}`);
+}
+
+export async function getSkillsSection(): Promise<SkillsSection> {
+	return await sanityFetch<SkillsSection>(`*[_type == "skillsSection"][0]{
+  title,
+  badge,
+  categories[]{
+    categoryTitle,
+    categoryIcon,
+    skills[]{
+      skillName,
+      icon
+    }
   }
 }`);
 }
