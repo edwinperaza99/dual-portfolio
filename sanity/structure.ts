@@ -70,7 +70,7 @@ export const structure: StructureResolver = (S) =>
 							S.documentTypeListItem("footer").title("Footer"),
 							S.documentTypeListItem("social").title("Social Links"),
 							S.documentTypeListItem("settingsSEO").title("SEO Settings"),
-							S.documentTypeListItem("contactForm").title("Contact Form"),
+							S.documentTypeListItem("contactSection").title("Contact Section"),
 						])
 				),
 		]);

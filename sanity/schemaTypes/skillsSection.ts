@@ -41,6 +41,10 @@ export const skillsSection = defineType({
 							name: "categoryIcon",
 							title: "Category Icon",
 							type: "iconPicker",
+							options: {
+								outputFormat: "react",
+								providers: ["fa", "hi", "fi", "si"],
+							},
 							description: "Select an icon for the category",
 						}),
 						defineField({

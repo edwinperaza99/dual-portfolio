@@ -6,6 +6,7 @@ import {
 	FooterData,
 	HeroSectionType,
 	AboutSectionType,
+	ContactSectionType,
 } from "@/lib/types";
 import { client } from "@/sanity/lib/client";
 
@@ -162,4 +163,32 @@ export async function getAboutSection(): Promise<AboutSectionType> {
           }
         }
       }`);
+}
+
+export async function getContactSection(): Promise<ContactSectionType> {
+	return sanityFetch<ContactSectionType>(`*[_type == "contactSection"][0]{
+      title,
+      description,
+      label,
+      formTitle,
+      formSubtitle,
+      accessToken,
+      primaryCard{
+        title,
+        subtitle,
+        contactInfo[]{
+          icon, 
+          value
+        }
+      },
+  
+      secondaryCard{
+        title,
+        subtitle,
+        contactInfo[]{
+          icon,
+          value
+        }
+      }
+    }`);
 }

@@ -6,7 +6,7 @@ import NavBar from "@/components/sections/nav-bar";
 import ExperienceSection from "@/components/sections/experience-section";
 import SkillsSection from "@/components/sections/skills-section";
 // import StreamingSection from "@/components/sections/streaming-section";
-// import ContactSection from "@/components/sections/contact-section";
+import ContactSection from "@/components/sections/contact-section";
 import SliderView from "@/components/sections/slider-view";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -14,6 +14,7 @@ import {
 	ExperienceSection as ExperienceSectionType,
 	HeroSectionType,
 	SkillsSection as SkillsSectionType,
+	ContactSectionType,
 } from "@/lib/types";
 import AboutSection from "@/components/sections/about-section";
 
@@ -23,7 +24,7 @@ type Props = {
 		experience: ExperienceSectionType;
 		hero: HeroSectionType;
 		about: AboutSectionType;
-		// contact: ContactSection;
+		contact: ContactSectionType;
 		// footer: FooterData;
 	};
 };
@@ -93,7 +94,7 @@ export default function Main({ pageData }: Props) {
 					)}
 				</AnimatePresence>
 
-				{/* <ContactSection /> */}
+				<ContactSection contactData={pageData.contact} />
 			</main>
 		</div>
 	);

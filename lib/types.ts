@@ -92,24 +92,26 @@ export type HeroSectionType = {
 	secondary: Persona;
 };
 
+export type PortableText = Array<{
+	children?: Array<{
+		marks?: Array<string>;
+		text?: string;
+		_type: "span";
+	}>;
+	style?: "normal" | "quote";
+	listItem?: "bullet" | "number";
+	markDefs?: Array<{
+		href?: string;
+		_type: "link";
+	}>;
+	level?: number;
+	_type: "block";
+}>;
+
 export interface AboutSectionType {
 	title: string;
 	badge?: string;
-	paragraphs: Array<{
-		children?: Array<{
-			marks?: Array<string>;
-			text?: string;
-			_type?: "span";
-		}>;
-		style?: "normal" | "quote";
-		listItem?: "bullet" | "number";
-		markDefs?: Array<{
-			href?: string;
-			_type: "link";
-		}>;
-		level?: number;
-		_type?: "block";
-	}>;
+	paragraphs: PortableText;
 
 	infoBoxes?: {
 		title?: string;
@@ -130,4 +132,27 @@ export interface AboutSectionType {
 			}[];
 		};
 	};
+}
+
+export interface ContactInfoItem {
+	icon: IconPicker;
+	value: string;
+}
+
+export interface ContactCard {
+	title: string;
+	subtitle?: string;
+	contactInfo: ContactInfoItem[];
+}
+
+export interface ContactSectionType {
+	title: string;
+	description?: string;
+	label?: string;
+	formTitle?: string;
+	formSubtitle?: string;
+	accessToken: string;
+
+	primaryCard: ContactCard;
+	secondaryCard: ContactCard;
 }

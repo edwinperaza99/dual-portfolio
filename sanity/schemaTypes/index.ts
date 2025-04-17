@@ -4,11 +4,11 @@ import { skillsSection } from "@/sanity/schemaTypes/skillsSection";
 import { social } from "@/sanity/schemaTypes/social";
 import { settingsSEO } from "@/sanity/schemaTypes/settingsSEO";
 import { footer } from "@/sanity/schemaTypes/footer";
-import { contactForm } from "@/sanity/schemaTypes/contactForm";
+import { contactSection } from "@/sanity/schemaTypes/contactSection";
 import { navBar } from "@/sanity/schemaTypes/navBar";
 import { hero } from "@/sanity/schemaTypes/heroSection";
 import { cta } from "@/sanity/schemaTypes/callToAction";
-import { personaSection } from "@/sanity/schemaTypes/persona";
+import { persona } from "@/sanity/schemaTypes/persona";
 import { aboutSection } from "@/sanity/schemaTypes/aboutSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -17,12 +17,12 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 		skillsSection,
 		aboutSection,
 		social,
-		contactForm,
+		contactSection,
 		navBar,
 		footer,
 		settingsSEO,
 		hero,
 		cta,
-		personaSection,
+		persona,
 	],
 };

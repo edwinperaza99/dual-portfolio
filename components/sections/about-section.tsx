@@ -1,5 +1,3 @@
-"use client";
-
 import { SectionHeader } from "@/components/ui/section-header";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +38,9 @@ export default function AboutSection({ aboutData }: Props) {
 									{aboutData.infoBoxes.map((box, i) => {
 										if (!box) return null;
 										const Icon = DynamicIcon(box.icon);
+										console.log(box.icon);
+										console.log(Icon);
+
 										return (
 											<div
 												key={i}
