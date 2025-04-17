@@ -10,6 +10,8 @@ import { hero } from "@/sanity/schemaTypes/heroSection";
 import { cta } from "@/sanity/schemaTypes/callToAction";
 import { persona } from "@/sanity/schemaTypes/persona";
 import { aboutSection } from "@/sanity/schemaTypes/aboutSection";
+import { streamSection } from "@/sanity/schemaTypes/streamSection";
+import { marquee } from "@/sanity/schemaTypes/marquee";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
 	types: [
@@ -23,6 +25,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 		settingsSEO,
 		hero,
 		cta,
+		marquee,
 		persona,
+		streamSection,
 	],
 };

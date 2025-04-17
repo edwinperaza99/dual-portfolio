@@ -156,3 +156,46 @@ export interface ContactSectionType {
 	primaryCard: ContactCard;
 	secondaryCard: ContactCard;
 }
+
+export interface MarqueeItem {
+	primaryText?: string;
+	secondaryText?: string;
+}
+
+export interface MarqueeType {
+	items: MarqueeItem[];
+	autoFill: boolean;
+	pauseOnHover: boolean;
+	pauseOnClick: boolean;
+	direction: "left" | "right";
+	speed: number;
+}
+
+export interface StreamSectionType {
+	badge?: string;
+	title: string;
+	paragraphs: PortableText;
+
+	categories?: { name: string }[];
+	socialLinks?: SocialLink[];
+
+	schedule?: {
+		title: string;
+		icon: IconPicker;
+		days: { day: string; time: string }[];
+	};
+
+	events?: {
+		title: string;
+		icon: IconPicker;
+		list: { title: string; date?: string; description?: string }[];
+	};
+
+	support?: {
+		title: string;
+		icon: IconPicker;
+		buttons: { label: string; url: string }[];
+	};
+
+	marquee?: MarqueeType;
+}

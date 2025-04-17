@@ -48,11 +48,11 @@ export const structure: StructureResolver = (S) =>
 						.title("Second Profile Content")
 						.items([
 							S.listItem()
-								.title("About")
+								.title("About Stream")
 								.child(
 									S.document()
-										.schemaType("secondAbout")
-										.documentId("secondAbout")
+										.schemaType("streamSection")
+										.documentId("streamSection")
 								),
 						])
 				),

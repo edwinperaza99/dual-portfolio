@@ -7,6 +7,7 @@ import {
 	HeroSectionType,
 	AboutSectionType,
 	ContactSectionType,
+	StreamSectionType,
 } from "@/lib/types";
 import { client } from "@/sanity/lib/client";
 
@@ -191,4 +192,45 @@ export async function getContactSection(): Promise<ContactSectionType> {
         }
       }
     }`);
+}
+
+export async function getStreamSection(): Promise<StreamSectionType> {
+	return sanityFetch<StreamSectionType>(`*[_type == "streamSection"][0]{
+  badge,
+  title,
+  paragraphs,
+  "categories": categories[]{ name },
+  "socialLinks": socials[]->{
+    label,
+    url,
+    icon           
+  },
+  schedule{
+    title,
+    icon,
+    "days": days[]{ day, time }
+  },
+  events{
+    title,
+    icon,
+    "list": list[]{ title, date, description }
+  },
+  support{
+    title,
+    icon,
+    "buttons": buttons[]{ label, url }
+  },
+  "marquee": marquee->{
+    title,
+    autoFill,
+    pauseOnHover,
+    pauseOnClick,
+    direction,
+    speed,
+    "items": items[]{
+      primaryText,
+      secondaryText
+    }
+  }
+}`);
 }

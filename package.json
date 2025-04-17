@@ -24,6 +24,7 @@
     "next-sanity": "^9.10.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-fast-marquee": "^1.6.5",
     "react-hot-toast": "^2.5.2",
     "react-is": "^19.1.0",
     "sanity": "^3.85.0",

@@ -4,6 +4,7 @@ import {
 	getHeroSection,
 	getAboutSection,
 	getContactSection,
+	getStreamSection,
 } from "@/sanity/sanity";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/sections/footer";
@@ -17,6 +18,7 @@ export default async function Home() {
 		hero: await getHeroSection(),
 		about: await getAboutSection(),
 		contact: await getContactSection(),
+		stream: await getStreamSection(),
 	};
 	return (
 		<div>

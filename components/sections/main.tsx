@@ -15,8 +15,10 @@ import {
 	HeroSectionType,
 	SkillsSection as SkillsSectionType,
 	ContactSectionType,
+	StreamSectionType,
 } from "@/lib/types";
 import AboutSection from "@/components/sections/about-section";
+import StreamingSection from "@/components/sections/stream-section";
 
 type Props = {
 	pageData: {
@@ -25,7 +27,7 @@ type Props = {
 		hero: HeroSectionType;
 		about: AboutSectionType;
 		contact: ContactSectionType;
-		// footer: FooterData;
+		stream: StreamSectionType;
 	};
 };
 
@@ -59,11 +61,8 @@ export default function Main({ pageData }: Props) {
 		sliderPositionRef.current = persona === "primary" ? 100 : 0;
 	};
 
-	// In a real implementation, you would fetch this data from Sanity.io
-
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-gray-950 to-[#0c0a1d] text-white overflow-hidden">
-			{/* Update references to activeSection/setActiveSection */}
 			<NavBar
 				activePersona={activePersona}
 				setActivePersona={handlePersonaChange}
@@ -88,8 +87,8 @@ export default function Main({ pageData }: Props) {
 						</div>
 					) : (
 						<div key="secondary-content">
-							placeholder
 							{/* <StreamingSection /> */}
+							<StreamingSection streamData={pageData.stream} />
 						</div>
 					)}
 				</AnimatePresence>
