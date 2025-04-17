@@ -9,11 +9,13 @@ import { navBar } from "@/sanity/schemaTypes/navBar";
 import { hero } from "@/sanity/schemaTypes/heroSection";
 import { cta } from "@/sanity/schemaTypes/callToAction";
 import { personaSection } from "@/sanity/schemaTypes/persona";
+import { aboutSection } from "@/sanity/schemaTypes/aboutSection";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
 	types: [
 		experienceSection,
 		skillsSection,
+		aboutSection,
 		social,
 		contactForm,
 		navBar,

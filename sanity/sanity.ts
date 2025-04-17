@@ -5,6 +5,7 @@ import {
 	SettingsSEO,
 	FooterData,
 	HeroSectionType,
+	AboutSectionType,
 } from "@/lib/types";
 import { client } from "@/sanity/lib/client";
 
@@ -133,4 +134,32 @@ export async function getHeroSection(): Promise<HeroSectionType> {
   }
   }
 }`);
+}
+
+export async function getAboutSection(): Promise<AboutSectionType> {
+	return await sanityFetch<AboutSectionType>(`*[_type == "aboutSection"][0]{
+        title,
+        badge,
+        paragraphs[],
+    
+        "infoBoxes": infoBoxes[]{
+          title,
+          value,
+          icon
+        },
+    
+        summaryCard{
+          title,
+          education{
+            degree,
+            institution
+          },
+          certifications{
+            title,
+            items[]{
+              name
+            }
+          }
+        }
+      }`);
 }

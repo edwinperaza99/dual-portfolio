@@ -2,6 +2,7 @@ import {
 	getExperienceSection,
 	getSkillsSection,
 	getHeroSection,
+	getAboutSection,
 } from "@/sanity/sanity";
 
 import Footer from "@/components/sections/footer";
@@ -13,7 +14,7 @@ export default async function Home() {
 		skills: await getSkillsSection(),
 		experience: await getExperienceSection(),
 		hero: await getHeroSection(),
-		// about: await getAboutSection(),
+		about: await getAboutSection(),
 		// contact: await getContactSection(),
 	};
 	return (

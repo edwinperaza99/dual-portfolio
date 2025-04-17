@@ -91,3 +91,43 @@ export type HeroSectionType = {
 	primary: Persona;
 	secondary: Persona;
 };
+
+export interface AboutSectionType {
+	title: string;
+	badge?: string;
+	paragraphs: Array<{
+		children?: Array<{
+			marks?: Array<string>;
+			text?: string;
+			_type?: "span";
+		}>;
+		style?: "normal" | "quote";
+		listItem?: "bullet" | "number";
+		markDefs?: Array<{
+			href?: string;
+			_type: "link";
+		}>;
+		level?: number;
+		_type?: "block";
+	}>;
+
+	infoBoxes?: {
+		title?: string;
+		value?: string;
+		icon?: IconPicker;
+	}[];
+
+	summaryCard: {
+		title?: string;
+		education?: {
+			degree?: string;
+			institution?: string;
+		};
+		certifications?: {
+			title?: string;
+			items: {
+				name: string;
+			}[];
+		};
+	};
+}

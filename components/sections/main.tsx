@@ -10,17 +10,19 @@ import SkillsSection from "@/components/sections/skills-section";
 import SliderView from "@/components/sections/slider-view";
 import { AnimatePresence } from "framer-motion";
 import {
+	AboutSectionType,
 	ExperienceSection as ExperienceSectionType,
 	HeroSectionType,
 	SkillsSection as SkillsSectionType,
 } from "@/lib/types";
+import AboutSection from "@/components/sections/about-section";
 
 type Props = {
 	pageData: {
 		skills: SkillsSectionType;
 		experience: ExperienceSectionType;
 		hero: HeroSectionType;
-		// about: AboutSection;
+		about: AboutSectionType;
 		// contact: ContactSection;
 		// footer: FooterData;
 	};
@@ -79,6 +81,7 @@ export default function Main({ pageData }: Props) {
 					{/* Update conditional rendering */}
 					{activePersona === "primary" ? (
 						<div key="primary-content">
+							<AboutSection aboutData={pageData.about} />
 							<ExperienceSection experienceData={pageData.experience} />
 							<SkillsSection skillsData={pageData.skills} />
 						</div>
