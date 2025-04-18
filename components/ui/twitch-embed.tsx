@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
 	channel: string;
@@ -8,7 +8,7 @@ interface Props {
 	height?: number | string;
 }
 
-export default function TwitchEmbed({
+export function TwitchEmbed({
 	channel,
 	width = "100%",
 	height = "100%",
@@ -58,6 +58,72 @@ export default function TwitchEmbed({
 	return (
 		<div className="aspect-[3/4] md:aspect-video">
 			<div id={`twitch-embed-${channel}`} ref={ref} className="w-full h-full" />
+		</div>
+	);
+}
+
+export function VODList({ limit = 3 }: { limit?: number }) {
+	interface VOD {
+		id: string;
+	}
+
+	const [vods, setVods] = useState<VOD[]>([]);
+
+	useEffect(() => {
+		const fetchVods = async () => {
+			const res = await fetch(`/api/twitch/vods?limit=${limit}`);
+			const data = await res.json();
+			setVods(data.data || []);
+			console.log(data);
+		};
+		fetchVods();
+	}, [limit]);
+
+	return (
+		<div className="grid grid-cols-1 gap-6 mt-12">
+			{vods.map((vod, i) => (
+				<div className="aspect-video" key={vod.id}>
+					<iframe
+						src={`https://player.twitch.tv/?video=${vod.id}&parent=${window.location.hostname}`}
+						title={`Recent Twitch VOD #${i}`}
+						allowFullScreen
+						className="w-full h-full rounded-lg border border-pink-500/30"
+						loading="eager"
+					/>
+				</div>
+			))}
+		</div>
+	);
+}
+
+export function ClipList({ limit = 5 }: { limit?: number }) {
+	interface Clip {
+		id: string;
+	}
+	const [clips, setClips] = useState<Clip[]>([]);
+
+	useEffect(() => {
+		const fetchClips = async () => {
+			const res = await fetch(`/api/twitch/clips?limit=${limit}`);
+			const data = await res.json();
+			setClips(data.data || []);
+		};
+		fetchClips();
+	}, [limit]);
+
+	return (
+		<div className="space-y-4">
+			{clips.map((clip, i) => (
+				<div key={clip.id} className="aspect-video">
+					<iframe
+						src={`https://clips.twitch.tv/embed?clip=${clip.id}&parent=${window.location.hostname}`}
+						allowFullScreen
+						className="w-full h-full rounded-lg border  border-pink-500/30"
+						title={`Twitch Clip: ${i}`}
+						loading="eager"
+					/>
+				</div>
+			))}
 		</div>
 	);
 }

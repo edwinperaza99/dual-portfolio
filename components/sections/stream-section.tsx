@@ -8,7 +8,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { DynamicIcon } from "@/lib/dynamic-icon";
 import { StreamSectionType } from "@/lib/types";
 import MarqueeBlock from "@/components/ui/Marquee";
-import TwitchEmbed from "@/components/ui/twitch-embed";
+import { ClipList, TwitchEmbed } from "@/components/ui/twitch-embed";
 
 interface Props {
 	streamData: StreamSectionType;
@@ -32,7 +32,7 @@ export default function StreamingSection({ streamData }: Props) {
 			{/* marquee (if any) */}
 			{marquee && <MarqueeBlock {...marquee} />}
 
-			<section id="streaming" className="py-20 relative overflow-hidden">
+			<section id="streaming" className="pt-20 relative overflow-hidden">
 				<div className="container mx-auto px-4">
 					<div className="max-w-4xl mx-auto">
 						{/* header */}
@@ -84,17 +84,19 @@ export default function StreamingSection({ streamData }: Props) {
 									</div>
 								)}
 
-								{/* recent streams placeholder */}
-								{/* TODO: fetch and render recentStreams */}
+								{/* recent clips  */}
+								<div className="mt-8">
+									<ClipList limit={3} />
+								</div>
 							</div>
 
 							{/* sidebar */}
 							<div className="space-y-6">
 								{/* schedule */}
 								{schedule && (
-									<Card className="py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
-										<CardHeader className="bg-purple-900/50 py-6">
-											<CardTitle className="text-white flex items-center gap-2">
+									<Card className="gap-0 py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
+										<CardHeader className="bg-purple-900/50 py-6 gap-0">
+											<CardTitle className="text-white flex items-center gap-2 ">
 												{(() => {
 													const Icon = DynamicIcon(schedule.icon);
 													return Icon ? (
@@ -104,7 +106,7 @@ export default function StreamingSection({ streamData }: Props) {
 												{schedule.title}
 											</CardTitle>
 										</CardHeader>
-										<CardContent className="p-6">
+										<CardContent className="p-4">
 											{schedule.days.map((d, i) => (
 												<div
 													key={i}
@@ -120,8 +122,8 @@ export default function StreamingSection({ streamData }: Props) {
 
 								{/* events */}
 								{events && (
-									<Card className="py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
-										<CardHeader className="bg-purple-900/50 py-6">
+									<Card className="gap-0 py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
+										<CardHeader className="bg-purple-900/50 py-6 gap-0">
 											<CardTitle className="text-white flex items-center gap-2">
 												{(() => {
 													const Icon = DynamicIcon(events.icon);
@@ -132,7 +134,7 @@ export default function StreamingSection({ streamData }: Props) {
 												{events.title}
 											</CardTitle>
 										</CardHeader>
-										<CardContent className="p-6">
+										<CardContent className="p-4 space-y-4">
 											{events.list.map((e, i) => (
 												<div
 													key={i}
@@ -155,8 +157,8 @@ export default function StreamingSection({ streamData }: Props) {
 
 								{/* support */}
 								{support && (
-									<Card className="py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
-										<CardHeader className="bg-purple-900/50 py-6">
+									<Card className="gap-0 py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
+										<CardHeader className="bg-purple-900/50 py-6 gap-0">
 											<CardTitle className="text-white flex items-center gap-2">
 												{(() => {
 													const Icon = DynamicIcon(support.icon);
@@ -167,7 +169,7 @@ export default function StreamingSection({ streamData }: Props) {
 												{support.title}
 											</CardTitle>
 										</CardHeader>
-										<CardContent className="p-6 space-y-4">
+										<CardContent className="p-4 space-y-4">
 											{support.buttons.map((b, i) => (
 												<Button
 													key={i}
