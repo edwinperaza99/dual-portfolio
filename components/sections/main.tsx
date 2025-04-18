@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import NavBar from "@/components/sections/nav-bar";
 import AboutSection from "@/components/sections/about-section";
@@ -29,31 +29,6 @@ type Props = {
 	};
 };
 
-const EXIT_DURATION = 0.5;
-
-const paneVariants: Variants = {
-	enter: {
-		opacity: 1,
-		transition: {
-			duration: EXIT_DURATION,
-			ease: "easeInOut",
-			// wait for the exit animation
-			delay: EXIT_DURATION,
-		},
-		display: "block",
-	},
-	exit: {
-		opacity: 0,
-		transition: {
-			duration: EXIT_DURATION,
-			ease: "easeInOut",
-		},
-		transitionEnd: {
-			display: "none",
-		},
-	},
-};
-
 export default function Main({ pageData }: Props) {
 	const [activePersona, setActivePersona] = useState<"primary" | "secondary">(
 		"primary"
@@ -66,6 +41,26 @@ export default function Main({ pageData }: Props) {
 	const handlePersonaChange = (p: "primary" | "secondary") => {
 		setActivePersona(p);
 		sliderPositionRef.current = p === "primary" ? 100 : 0;
+	};
+	// refs to measure each pane
+	const primaryRef = useRef<HTMLDivElement>(null);
+	const secondaryRef = useRef<HTMLDivElement>(null);
+
+	// wrapper height state
+	const [wrapperHeight, setWrapperHeight] = useState<number>(0);
+
+	// when activePersona (or content) changes, measure the currently active pane
+	useLayoutEffect(() => {
+		const el =
+			activePersona === "primary" ? primaryRef.current : secondaryRef.current;
+		if (el) {
+			setWrapperHeight(el.offsetHeight);
+		}
+	}, [activePersona, pageData]); // also if your sections’ data changes
+
+	const paneVariants: Variants = {
+		enter: { opacity: 1, transition: { duration: 0.5 } },
+		exit: { opacity: 0, transition: { duration: 0.5 } },
 	};
 
 	return (
@@ -82,25 +77,38 @@ export default function Main({ pageData }: Props) {
 					heroData={pageData.hero}
 				/>
 
-				<div className="relative">
-					{/* Primary Pane */}
+				{/* height-locked container */}
+				<div
+					style={{
+						height: wrapperHeight,
+						overflow: "hidden",
+						transition: "height 0.5s ease-in-out",
+					}}
+				>
+					{/* primary pane */}
 					<motion.div
+						ref={primaryRef}
 						variants={paneVariants}
 						initial="exit"
 						animate={activePersona === "primary" ? "enter" : "exit"}
-						className="w-full"
+						style={{
+							display: activePersona === "primary" ? "block" : "none",
+						}}
 					>
 						<AboutSection aboutData={pageData.about} />
 						<ExperienceSection experienceData={pageData.experience} />
 						<SkillsSection skillsData={pageData.skills} />
 					</motion.div>
 
-					{/* Streaming Pane */}
+					{/* streaming pane */}
 					<motion.div
+						ref={secondaryRef}
 						variants={paneVariants}
 						initial="exit"
 						animate={activePersona === "secondary" ? "enter" : "exit"}
-						className="w-full"
+						style={{
+							display: activePersona === "secondary" ? "block" : "none",
+						}}
 					>
 						<StreamingSection streamData={pageData.stream} />
 					</motion.div>
