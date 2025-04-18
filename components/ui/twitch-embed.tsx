@@ -41,7 +41,7 @@ export default function TwitchEmbed({
 				width,
 				height,
 				layout: "video-with-chat",
-				theme: "light",
+				theme: "dark",
 				autoplay: false,
 				parent: [window.location.hostname],
 			});

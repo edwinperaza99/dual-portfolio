@@ -94,6 +94,7 @@ export default function Main({ pageData }: Props) {
 						style={{
 							display: activePersona === "primary" ? "block" : "none",
 						}}
+						className="bg-gradient-to-r from-blue-800 via-indigo-800 to-violet-900"
 					>
 						<AboutSection aboutData={pageData.about} />
 						<ExperienceSection experienceData={pageData.experience} />

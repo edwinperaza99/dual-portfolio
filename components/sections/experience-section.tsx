@@ -15,13 +15,13 @@ type Props = {
 
 export default function ExperienceSection({ experienceData }: Props) {
 	return (
-		<section id="experience" className="py-20 relative overflow-hidden">
+		<section id="experience" className="pt-20 relative overflow-hidden">
 			<div className="container mx-auto px-4">
 				<div className="max-w-4xl mx-auto">
 					<SectionHeader
 						badge={experienceData.badge}
 						title={experienceData.title}
-						gradient="from-blue-300 to-cyan-400"
+						gradient="primary"
 					/>
 					<div className="relative border-l-2 border-blue-600/50 pl-8 space-y-12 ml-4">
 						{experienceData.experiences?.map((job, i) => (

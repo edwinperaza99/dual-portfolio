@@ -13,13 +13,13 @@ interface Props {
 
 export default function AboutSection({ aboutData }: Props) {
 	return (
-		<section id="about" className="py-20 relative overflow-hidden">
+		<section id="about" className="pt-20 relative overflow-hidden">
 			<div className="container mx-auto px-4">
 				<div className="max-w-4xl mx-auto">
 					<SectionHeader
 						badge={aboutData.badge}
 						title={aboutData.title}
-						gradient="from-blue-300 to-cyan-400"
+						gradient="primary"
 					/>
 
 					{/* main layout */}
@@ -42,7 +42,7 @@ export default function AboutSection({ aboutData }: Props) {
 										return (
 											<div
 												key={i}
-												className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-4 transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20 hover:translate-y-[-4px]"
+												className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-4 transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20"
 											>
 												{box.title && (
 													<div className="text-blue-300 mb-2 font-medium">

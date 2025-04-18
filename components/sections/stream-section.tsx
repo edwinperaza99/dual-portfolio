@@ -36,11 +36,7 @@ export default function StreamingSection({ streamData }: Props) {
 				<div className="container mx-auto px-4">
 					<div className="max-w-4xl mx-auto">
 						{/* header */}
-						<SectionHeader
-							badge={badge}
-							title={title}
-							gradient="from-pink-400 to-purple-400"
-						/>
+						<SectionHeader badge={badge} title={title} gradient="secondary" />
 
 						{/* Twitch hero placeholder */}
 						<div className="relative overflow-hidden rounded-xl border border-pink-500/30 mb-12 mt-12 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg">
@@ -96,9 +92,9 @@ export default function StreamingSection({ streamData }: Props) {
 							<div className="space-y-6">
 								{/* schedule */}
 								{schedule && (
-									<Card className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
-										<CardHeader>
-											<CardTitle className="flex items-center gap-2 text-white">
+									<Card className="py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
+										<CardHeader className="bg-purple-900/50 py-6">
+											<CardTitle className="text-white flex items-center gap-2">
 												{(() => {
 													const Icon = DynamicIcon(schedule.icon);
 													return Icon ? (
@@ -124,9 +120,9 @@ export default function StreamingSection({ streamData }: Props) {
 
 								{/* events */}
 								{events && (
-									<Card className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
-										<CardHeader>
-											<CardTitle className="flex items-center gap-2 text-white">
+									<Card className="py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
+										<CardHeader className="bg-purple-900/50 py-6">
+											<CardTitle className="text-white flex items-center gap-2">
 												{(() => {
 													const Icon = DynamicIcon(events.icon);
 													return Icon ? (
@@ -159,8 +155,8 @@ export default function StreamingSection({ streamData }: Props) {
 
 								{/* support */}
 								{support && (
-									<Card className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
-										<CardHeader className="bg-purple-900/50">
+									<Card className="py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
+										<CardHeader className="bg-purple-900/50 py-6">
 											<CardTitle className="text-white flex items-center gap-2">
 												{(() => {
 													const Icon = DynamicIcon(support.icon);

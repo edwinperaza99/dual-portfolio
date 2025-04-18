@@ -17,7 +17,7 @@ export default function SkillsSection({ skillsData }: Props) {
 					<SectionHeader
 						badge={skillsData.badge}
 						title={skillsData.title}
-						gradient="from-blue-300 to-cyan-400"
+						gradient="primary"
 					/>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
