@@ -29,23 +29,23 @@ type Props = {
 	};
 };
 
+const EXIT_DURATION = 0.5;
+
 const paneVariants: Variants = {
 	enter: {
 		opacity: 1,
-		scale: 1,
-		borderRadius: "0%",
 		transition: {
-			duration: 0.5,
+			duration: EXIT_DURATION,
 			ease: "easeInOut",
+			// wait for the exit animation
+			delay: EXIT_DURATION,
 		},
 		display: "block",
 	},
 	exit: {
 		opacity: 0,
-		scale: 0.9,
-		borderRadius: "20%",
 		transition: {
-			duration: 0.5,
+			duration: EXIT_DURATION,
 			ease: "easeInOut",
 		},
 		transitionEnd: {
@@ -55,11 +55,9 @@ const paneVariants: Variants = {
 };
 
 export default function Main({ pageData }: Props) {
-	// Update the state type and initial value
 	const [activePersona, setActivePersona] = useState<"primary" | "secondary">(
 		"primary"
 	);
-	// Add a new ref for the slider position
 	const sliderPositionRef = useRef(95);
 
 	const handleSliderChange = (pos: number) => {
@@ -84,15 +82,12 @@ export default function Main({ pageData }: Props) {
 					heroData={pageData.hero}
 				/>
 
-				{/* only hide horizontal overflow, allow vertical growth */}
 				<div className="relative">
 					{/* Primary Pane */}
 					<motion.div
-						custom="primary"
 						variants={paneVariants}
 						initial="exit"
 						animate={activePersona === "primary" ? "enter" : "exit"}
-						// no absolute positioning, normal flow
 						className="w-full"
 					>
 						<AboutSection aboutData={pageData.about} />
@@ -102,7 +97,6 @@ export default function Main({ pageData }: Props) {
 
 					{/* Streaming Pane */}
 					<motion.div
-						custom="secondary"
 						variants={paneVariants}
 						initial="exit"
 						animate={activePersona === "secondary" ? "enter" : "exit"}
