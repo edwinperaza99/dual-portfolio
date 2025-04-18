@@ -38,8 +38,10 @@ export default function ExperienceSection({ experienceData }: Props) {
 										<CardTitle className="text-white text-xl">
 											{job.jobTitle}
 										</CardTitle>
-										<CardDescription className="text-blue-300">
-											{job.company}
+										<CardDescription className="text-blue-300 flex items-center gap-1">
+											<span>{job.company}</span>
+											<span className="text-blue-400">•</span>
+											<span>{job.location}</span>
 										</CardDescription>
 									</CardHeader>
 									<CardContent>

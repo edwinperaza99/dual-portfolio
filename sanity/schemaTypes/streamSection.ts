@@ -192,7 +192,8 @@ export const streamSection = defineType({
 								defineField({
 									name: "url",
 									type: "url",
-									validation: (Rule) => Rule.required(),
+									validation: (Rule) =>
+										Rule.uri({ allowRelative: true }).required(),
 								}),
 							],
 						},

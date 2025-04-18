@@ -23,7 +23,7 @@ export default function MarqueeBlock({
 			{items.map((item, idx) => (
 				<div
 					key={idx}
-					className="flex items-center px-6 py-3 border-r border-pink-500/20 last:border-r-0"
+					className="flex items-center px-12 py-3 border-r border-pink-500/20 last:border-r-0"
 				>
 					{item.primaryText && (
 						<span className="font-medium text-pink-400">
