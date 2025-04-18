@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { motion, Variants } from "framer-motion";
 import NavBar from "@/components/sections/nav-bar";
-// import AboutSection from "@/components/sections/about-section";
+import AboutSection from "@/components/sections/about-section";
 import ExperienceSection from "@/components/sections/experience-section";
 import SkillsSection from "@/components/sections/skills-section";
-// import StreamingSection from "@/components/sections/streaming-section";
+import StreamingSection from "@/components/sections/stream-section";
 import ContactSection from "@/components/sections/contact-section";
 import SliderView from "@/components/sections/slider-view";
-import { AnimatePresence } from "framer-motion";
 import {
 	AboutSectionType,
 	ExperienceSection as ExperienceSectionType,
@@ -17,8 +17,6 @@ import {
 	ContactSectionType,
 	StreamSectionType,
 } from "@/lib/types";
-import AboutSection from "@/components/sections/about-section";
-import StreamingSection from "@/components/sections/stream-section";
 
 type Props = {
 	pageData: {
@@ -31,70 +29,91 @@ type Props = {
 	};
 };
 
+const paneVariants: Variants = {
+	enter: {
+		opacity: 1,
+		scale: 1,
+		borderRadius: "0%",
+		transition: {
+			duration: 0.5,
+			ease: "easeInOut",
+		},
+		display: "block",
+	},
+	exit: {
+		opacity: 0,
+		scale: 0.9,
+		borderRadius: "20%",
+		transition: {
+			duration: 0.5,
+			ease: "easeInOut",
+		},
+		transitionEnd: {
+			display: "none",
+		},
+	},
+};
+
 export default function Main({ pageData }: Props) {
 	// Update the state type and initial value
 	const [activePersona, setActivePersona] = useState<"primary" | "secondary">(
 		"primary"
 	);
-
 	// Add a new ref for the slider position
-	const sliderPositionRef = useRef(100); // Start at 100 for sysadmin
+	const sliderPositionRef = useRef(95);
 
-	// Fix the slider and button logic to ensure they're in sync
-
-	// Update the slider change handler
-	const handleSliderChange = (position: number) => {
-		// If slider is more than 50% to the right, show secondary content
-		if (position >= 50 && activePersona !== "primary") {
-			setActivePersona("primary");
-		} else if (position < 50 && activePersona !== "secondary") {
-			setActivePersona("secondary");
-		}
+	const handleSliderChange = (pos: number) => {
+		setActivePersona(pos >= 50 ? "primary" : "secondary");
 	};
-
-	// Update the section change handler
-	const handlePersonaChange = (persona: "primary" | "secondary") => {
-		if (persona === activePersona) return;
-		setActivePersona(persona);
-
-		// Update the slider position based on the selected persona
-		sliderPositionRef.current = persona === "primary" ? 100 : 0;
+	const handlePersonaChange = (p: "primary" | "secondary") => {
+		setActivePersona(p);
+		sliderPositionRef.current = p === "primary" ? 100 : 0;
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-gray-950 to-[#0c0a1d] text-white overflow-hidden">
+		<>
 			<NavBar
 				activePersona={activePersona}
 				setActivePersona={handlePersonaChange}
 			/>
 
-			<main className="relative">
-				{/* Hero Section with Slider */}
+			<main>
 				<SliderView
 					sliderPositionRef={sliderPositionRef}
 					onSliderChange={handleSliderChange}
 					heroData={pageData.hero}
 				/>
 
-				{/* TODO: make animation smoother with motion  */}
-				<AnimatePresence mode="wait">
-					{/* Update conditional rendering */}
-					{activePersona === "primary" ? (
-						<div key="primary-content">
-							<AboutSection aboutData={pageData.about} />
-							<ExperienceSection experienceData={pageData.experience} />
-							<SkillsSection skillsData={pageData.skills} />
-						</div>
-					) : (
-						<div key="secondary-content">
-							{/* <StreamingSection /> */}
-							<StreamingSection streamData={pageData.stream} />
-						</div>
-					)}
-				</AnimatePresence>
+				{/* only hide horizontal overflow, allow vertical growth */}
+				<div className="relative">
+					{/* Primary Pane */}
+					<motion.div
+						custom="primary"
+						variants={paneVariants}
+						initial="exit"
+						animate={activePersona === "primary" ? "enter" : "exit"}
+						// no absolute positioning, normal flow
+						className="w-full"
+					>
+						<AboutSection aboutData={pageData.about} />
+						<ExperienceSection experienceData={pageData.experience} />
+						<SkillsSection skillsData={pageData.skills} />
+					</motion.div>
+
+					{/* Streaming Pane */}
+					<motion.div
+						custom="secondary"
+						variants={paneVariants}
+						initial="exit"
+						animate={activePersona === "secondary" ? "enter" : "exit"}
+						className="w-full"
+					>
+						<StreamingSection streamData={pageData.stream} />
+					</motion.div>
+				</div>
 
 				<ContactSection contactData={pageData.contact} />
 			</main>
-		</div>
+		</>
 	);
 }
