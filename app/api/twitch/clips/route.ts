@@ -24,10 +24,11 @@ export async function GET(req: Request) {
 
 		const { searchParams } = new URL(req.url);
 		const limit = parseInt(searchParams.get("limit") || "5", 10);
+		const login = searchParams.get("channel");
 
 		// Get user ID
 		const userRes = await fetch(
-			`https://api.twitch.tv/helix/users?login=tofubinbin`,
+			`https://api.twitch.tv/helix/users?login=${login}`,
 			{
 				headers: {
 					"Client-ID": clientId,

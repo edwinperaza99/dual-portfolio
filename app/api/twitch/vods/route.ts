@@ -23,10 +23,11 @@ export async function GET(req: Request) {
 
 		const { searchParams } = new URL(req.url);
 		const limit = parseInt(searchParams.get("limit") || "3", 10);
+		const login = searchParams.get("channel");
 
 		// Get user ID
 		const userRes = await fetch(
-			`https://api.twitch.tv/helix/users?login=tofubinbin`,
+			`https://api.twitch.tv/helix/users?login=${login}`,
 			{
 				headers: {
 					"Client-ID": clientId,
@@ -50,9 +51,6 @@ export async function GET(req: Request) {
 			}
 		);
 		const vods = await vodRes.json();
-
-		console.log("Fetching", limit, "VODs");
-		console.log("Response:", vods); // ✅ FIXED
 
 		return NextResponse.json(vods);
 	} catch (err) {

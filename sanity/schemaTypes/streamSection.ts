@@ -5,7 +5,6 @@ export const streamSection = defineType({
 	title: "Stream Page",
 	type: "document",
 	fields: [
-		/* ——— basic channel info ——— */
 		defineField({
 			name: "badge",
 			type: "string",
@@ -17,6 +16,13 @@ export const streamSection = defineType({
 			type: "string",
 			title: "Title",
 			description: "Main title of the page (e.g., 'My Stream')",
+			validation: (r) => r.required(),
+		}),
+		defineField({
+			name: "channelName",
+			type: "string",
+			title: "Channel Name",
+			description: "Name of the channel used to fetch stream data",
 			validation: (r) => r.required(),
 		}),
 

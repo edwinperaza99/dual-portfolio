@@ -174,6 +174,7 @@ export interface MarqueeType {
 export interface StreamSectionType {
 	badge?: string;
 	title: string;
+	channelName?: string;
 	paragraphs: PortableText;
 
 	categories?: { name: string }[];

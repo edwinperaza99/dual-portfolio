@@ -62,7 +62,13 @@ export function TwitchEmbed({
 	);
 }
 
-export function VODList({ limit = 3 }: { limit?: number }) {
+export function VODList({
+	channel,
+	limit = 3,
+}: {
+	channel: string;
+	limit?: number;
+}) {
 	interface VOD {
 		id: string;
 	}
@@ -71,13 +77,15 @@ export function VODList({ limit = 3 }: { limit?: number }) {
 
 	useEffect(() => {
 		const fetchVods = async () => {
-			const res = await fetch(`/api/twitch/vods?limit=${limit}`);
+			const res = await fetch(
+				`/api/twitch/vods?limit=${limit}&channel=${channel}`
+			);
 			const data = await res.json();
 			setVods(data.data || []);
 			console.log(data);
 		};
 		fetchVods();
-	}, [limit]);
+	}, [limit, channel]);
 
 	return (
 		<div className="grid grid-cols-1 gap-6 mt-12">
@@ -96,7 +104,13 @@ export function VODList({ limit = 3 }: { limit?: number }) {
 	);
 }
 
-export function ClipList({ limit = 5 }: { limit?: number }) {
+export function ClipList({
+	channel,
+	limit = 5,
+}: {
+	channel: string;
+	limit?: number;
+}) {
 	interface Clip {
 		id: string;
 	}
@@ -104,12 +118,14 @@ export function ClipList({ limit = 5 }: { limit?: number }) {
 
 	useEffect(() => {
 		const fetchClips = async () => {
-			const res = await fetch(`/api/twitch/clips?limit=${limit}`);
+			const res = await fetch(
+				`/api/twitch/clips?limit=${limit}&channel=${channel}`
+			);
 			const data = await res.json();
 			setClips(data.data || []);
 		};
 		fetchClips();
-	}, [limit]);
+	}, [limit, channel]);
 
 	return (
 		<div className="space-y-4">

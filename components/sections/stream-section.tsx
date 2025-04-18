@@ -18,6 +18,7 @@ export default function StreamingSection({ streamData }: Props) {
 	const {
 		badge,
 		title,
+		channelName,
 		paragraphs,
 		categories,
 		socialLinks,
@@ -39,9 +40,11 @@ export default function StreamingSection({ streamData }: Props) {
 						<SectionHeader badge={badge} title={title} gradient="secondary" />
 
 						{/* Twitch hero placeholder */}
-						<div className="relative overflow-hidden rounded-xl border border-pink-500/30 mb-12 mt-12 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg">
-							<TwitchEmbed channel="tofubinbin" />
-						</div>
+						{channelName && (
+							<div className="relative overflow-hidden rounded-xl border border-pink-500/30 mb-12 mt-12 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg">
+								<TwitchEmbed channel={channelName} />
+							</div>
+						)}
 
 						<div className="grid md:grid-cols-[2fr_1fr] gap-8 mt-12">
 							<div>
@@ -85,9 +88,11 @@ export default function StreamingSection({ streamData }: Props) {
 								)}
 
 								{/* recent clips  */}
-								<div className="mt-8">
-									<ClipList limit={3} />
-								</div>
+								{channelName && (
+									<div className="mt-8">
+										<ClipList limit={3} channel={channelName} />
+									</div>
+								)}
 							</div>
 
 							{/* sidebar */}

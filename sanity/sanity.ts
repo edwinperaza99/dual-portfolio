@@ -198,6 +198,7 @@ export async function getStreamSection(): Promise<StreamSectionType> {
 	return sanityFetch<StreamSectionType>(`*[_type == "streamSection"][0]{
   badge,
   title,
+  channelName,
   paragraphs,
   "categories": categories[]{ name },
   "socialLinks": socials[]->{
