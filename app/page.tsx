@@ -21,10 +21,10 @@ export default async function Home() {
 		stream: await getStreamSection(),
 	};
 	return (
-		<div>
+		<>
 			<Toaster position="bottom-center" />
 			<Main pageData={pageData} />
 			<Footer />
-		</div>
+		</>
 	);
 }
