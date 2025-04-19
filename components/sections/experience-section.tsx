@@ -54,7 +54,7 @@ export default function ExperienceSection({ experienceData }: Props) {
 									{/* Timeline Dot */}
 									<div className="absolute -left-[40px] top-0 w-5 h-5 rounded-full bg-blue-600 border-4 border-blue-950 shadow-lg" />
 
-									<Card className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 transition-all duration-300 hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-900/30 relative overflow-hidden">
+									<Card className="bg-blue-900/30 border border-blue-500/20 rounded-lg px-0 py-8 md:py-6 md:px-6 transition-all duration-300 hover:border-blue-400/40 hover:shadow-xl hover:shadow-blue-900/30 relative overflow-hidden">
 										{/* Date badge */}
 										<div className="absolute top-0 right-0 bg-blue-600/90 text-white text-xs font-medium px-3 py-1 rounded-bl-lg z-10 backdrop-blur">
 											{`${job.startDate} - ${job.endDate}`}

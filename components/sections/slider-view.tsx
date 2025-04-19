@@ -110,7 +110,7 @@ export default function SliderView({
 							{secondary.primaryCTA?.url && (
 								<Button
 									asChild
-									className="bg-purple-600 hover:bg-purple-700 text-white transition-colors duration-300 shadow hover:shadow-lg"
+									className="bg-pink-600 text-white font-semibold px-5 py-2 rounded-md hover:bg-pink-500 shadow-md transition duration-300"
 								>
 									<Link href={secondary.primaryCTA.url}>
 										{secondary.primaryCTA.label}
@@ -120,8 +120,7 @@ export default function SliderView({
 							{secondary.secondaryCTA?.url && (
 								<Button
 									asChild
-									variant="outline"
-									className="border border-purple-500 text-purple-300 hover:bg-purple-900/50 hover:border-purple-400 transition-colors duration-300"
+									className="bg-transparent border border-pink-300 text-pink-200 hover:bg-pink-200/10 hover:text-white hover:border-pink-100 font-medium px-5 py-2 rounded-md shadow-sm transition duration-300"
 								>
 									<Link href={secondary.secondaryCTA.url}>
 										{secondary.secondaryCTA.label}
@@ -188,7 +187,7 @@ export default function SliderView({
 							{primary.primaryCTA?.url && (
 								<Button
 									asChild
-									className="bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-300"
+									className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-md hover:bg-blue-500 shadow-md transition duration-300"
 								>
 									<Link href={primary.primaryCTA.url}>
 										{primary.primaryCTA.label}
@@ -198,8 +197,7 @@ export default function SliderView({
 							{primary.secondaryCTA?.url && (
 								<Button
 									asChild
-									variant="outline"
-									className="border border-blue-500 text-blue-300 hover:bg-blue-900/50 hover:border-blue-400 transition-colors duration-300"
+									className="bg-transparent border border-cyan-300 text-cyan-200 hover:bg-cyan-200/10 hover:text-white hover:border-cyan-100 font-medium px-5 py-2 rounded-md shadow-sm transition duration-300"
 								>
 									<Link href={primary.secondaryCTA.url}>
 										{primary.secondaryCTA.label}

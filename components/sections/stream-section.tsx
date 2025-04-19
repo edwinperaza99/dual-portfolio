@@ -111,6 +111,9 @@ export default function StreamingSection({ streamData }: Props) {
 								{/* recent clips  */}
 								{channelName && (
 									<div className="mt-8">
+										<h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-400">
+											Recent Clips
+										</h2>
 										<ClipList limit={3} channel={channelName} />
 									</div>
 								)}

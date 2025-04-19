@@ -203,8 +203,8 @@ export async function getStreamSection(): Promise<StreamSectionType> {
   paragraphs,
   "categories": categories[]{ name },
   "socialLinks": socials[]->{
-    label,
-    url,
+    displayName,
+    link,
     icon           
   },
   schedule{

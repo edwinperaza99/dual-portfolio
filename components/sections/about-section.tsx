@@ -71,53 +71,54 @@ export default function AboutSection({ aboutData }: Props) {
 						{/* right column (summary card) ------------------------------- */}
 						{aboutData.summaryCard && (
 							<motion.div
-								className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 h-fit transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20"
 								initial={{ opacity: 0, x: 50 }}
 								whileInView={{ opacity: 1, x: 0 }}
 								transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
 								viewport={{ once: true }}
 							>
-								{aboutData.summaryCard.title && (
-									<h3 className="text-xl font-bold mb-4 text-blue-200">
-										{aboutData.summaryCard.title}
-									</h3>
-								)}
+								<div className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 h-fit transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
+									{aboutData.summaryCard.title && (
+										<h3 className="text-xl font-bold mb-4 text-blue-200">
+											{aboutData.summaryCard.title}
+										</h3>
+									)}
 
-								{/* education */}
-								{aboutData.summaryCard.education && (
-									<>
-										<div className="font-medium text-white">
-											{aboutData.summaryCard.education.degree}
-										</div>
-										<div className="text-sm text-blue-300 mb-4">
-											{aboutData.summaryCard.education.institution}
-										</div>
-										<Separator className="bg-blue-700/50" />
-									</>
-								)}
+									{/* education */}
+									{aboutData.summaryCard.education && (
+										<>
+											<div className="font-medium text-white">
+												{aboutData.summaryCard.education.degree}
+											</div>
+											<div className="text-sm text-blue-300 mb-4">
+												{aboutData.summaryCard.education.institution}
+											</div>
+											<Separator className="bg-blue-700/50" />
+										</>
+									)}
 
-								{/* certifications */}
-								{aboutData.summaryCard.certifications && (
-									<div className="space-y-2 mt-4">
-										{aboutData.summaryCard.certifications.title && (
-											<h4 className="text-sm font-medium text-blue-200">
-												{aboutData.summaryCard.certifications.title}
-											</h4>
-										)}
-										<div className="flex flex-wrap gap-2">
-											{aboutData.summaryCard.certifications.items.map(
-												(cert, i) => (
-													<Badge
-														key={i}
-														className="bg-blue-600/50 hover:bg-blue-600 text-white transition-all duration-300 hover:scale-105"
-													>
-														{cert.name}
-													</Badge>
-												)
+									{/* certifications */}
+									{aboutData.summaryCard.certifications && (
+										<div className="space-y-2 mt-4">
+											{aboutData.summaryCard.certifications.title && (
+												<h4 className="text-sm font-medium text-blue-200">
+													{aboutData.summaryCard.certifications.title}
+												</h4>
 											)}
+											<div className="flex flex-wrap gap-2">
+												{aboutData.summaryCard.certifications.items.map(
+													(cert, i) => (
+														<Badge
+															key={i}
+															className="bg-blue-600/50 hover:bg-blue-600 text-white transition-all duration-300 hover:scale-105"
+														>
+															{cert.name}
+														</Badge>
+													)
+												)}
+											</div>
 										</div>
-									</div>
-								)}
+									)}
+								</div>
 							</motion.div>
 						)}
 					</div>

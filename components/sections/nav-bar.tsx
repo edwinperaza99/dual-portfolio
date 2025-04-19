@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { NavBarType } from "@/lib/types";
 import { DynamicIcon } from "@/lib/dynamic-icon";
@@ -27,7 +28,12 @@ export default function NavBar({
 	const SecondaryIcon = DynamicIcon(navBarData.secondaryIcon);
 
 	return (
-		<header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-gray-950/30 backdrop-blur-lg">
+		<motion.header
+			initial={{ y: -50, opacity: 0 }}
+			animate={{ y: 0, opacity: 1 }}
+			transition={{ duration: 0.5, ease: "easeOut" }}
+			className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-gray-950/30 backdrop-blur-lg"
+		>
 			<nav className="container mx-auto flex h-16 items-center justify-center px-4">
 				{/* single‑toggle pill, a bit taller */}
 				<button
@@ -69,6 +75,6 @@ export default function NavBar({
 					</span>
 				</button>
 			</nav>
-		</header>
+		</motion.header>
 	);
 }
