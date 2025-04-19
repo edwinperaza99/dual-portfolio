@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Card,
 	CardContent,
@@ -26,14 +28,17 @@ export default function ExperienceSection({ experienceData }: Props) {
 					<div className="relative border-l-2 border-blue-600/50 pl-8 space-y-12 ml-4">
 						{experienceData.experiences?.map((job, i) => (
 							<div key={i} className="relative">
+								{/* Timeline dot */}
 								<div className="absolute -left-[41px] top-0 w-6 h-6 rounded-full bg-blue-600 border-4 border-blue-950 flex items-center justify-center">
-									<div className="w-2 h-2 bg-blue-200 rounded-full"></div>
+									<div className="w-2 h-2 bg-blue-200 rounded-full" />
 								</div>
 
-								<Card className="bg-blue-900/30 border-blue-500/20 overflow-hidden">
-									<div className="absolute top-0 right-0 bg-blue-600/80 text-white text-xs font-medium px-3 py-1 rounded-bl-lg">
+								<Card className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 h-fit transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20 relative overflow-hidden">
+									{/* Date badge */}
+									<div className="absolute top-0 right-0 bg-blue-600/80 text-white text-xs font-medium px-3 py-1 rounded-bl-lg z-10">
 										{`${job.startDate} - ${job.endDate}`}
 									</div>
+
 									<CardHeader>
 										<CardTitle className="text-white text-xl">
 											{job.jobTitle}
@@ -44,6 +49,7 @@ export default function ExperienceSection({ experienceData }: Props) {
 											<span>{job.location}</span>
 										</CardDescription>
 									</CardHeader>
+
 									<CardContent>
 										<ul className="space-y-2 text-blue-100">
 											{job.responsibilities?.map((res, j) => (

@@ -1,9 +1,10 @@
+"use client";
+
 import { SectionHeader } from "@/components/ui/section-header";
 import { Badge } from "@/components/ui/badge";
 import { DynamicIcon } from "@/lib/dynamic-icon";
 
-import type { SkillsSection } from "@/lib/types";
-import { SkillsSection as SkillsSectionType } from "@/lib/types";
+import type { SkillsSection as SkillsSectionType } from "@/lib/types";
 
 type Props = {
 	skillsData: SkillsSectionType;
@@ -22,7 +23,6 @@ export default function SkillsSection({ skillsData }: Props) {
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						{skillsData.categories?.map((category, index) => {
-							// Get the dynamic icon for the category if it exists
 							const CategoryIcon = category.categoryIcon
 								? DynamicIcon(category.categoryIcon)
 								: null;
@@ -30,7 +30,7 @@ export default function SkillsSection({ skillsData }: Props) {
 							return (
 								<div
 									key={index}
-									className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 border border-blue-500/20 rounded-xl p-6 backdrop-blur-sm h-full transition-all duration-300 hover:border-blue-500/40"
+									className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 h-fit transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20"
 								>
 									<h3 className="text-xl font-bold mb-6 text-blue-200 flex items-center gap-2">
 										{CategoryIcon && <CategoryIcon className="h-5 w-5" />}
@@ -39,14 +39,14 @@ export default function SkillsSection({ skillsData }: Props) {
 
 									<div className="flex flex-wrap gap-2">
 										{category.skills?.map((skill, i) => {
-											// Get the dynamic icon for each skill if it exists
 											const SkillIcon = skill.icon
 												? DynamicIcon(skill.icon)
 												: null;
+
 											return (
 												<Badge
 													key={i}
-													className="bg-blue-600/40 hover:bg-blue-600/60 text-white border border-blue-400/20 px-3 py-1"
+													className="bg-blue-600/40 hover:bg-blue-600/60 text-white border border-blue-400/20 px-3 py-1 transition-all duration-200"
 												>
 													{SkillIcon && (
 														<SkillIcon className="h-4 w-4 inline-block mr-2" />

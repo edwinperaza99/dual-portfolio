@@ -59,8 +59,14 @@ export default function Main({ pageData }: Props) {
 	}, [activePersona, pageData]); // also if your sections’ data changes
 
 	const paneVariants: Variants = {
-		enter: { opacity: 1, transition: { duration: 0.5 } },
-		exit: { opacity: 0, transition: { duration: 0.5 } },
+		enter: {
+			opacity: 1,
+			transition: { duration: 0.5, ease: "easeOut" },
+		},
+		exit: {
+			opacity: 0,
+			transition: { duration: 1, ease: "easeIn" },
+		},
 	};
 
 	return (
@@ -94,7 +100,7 @@ export default function Main({ pageData }: Props) {
 						style={{
 							display: activePersona === "primary" ? "block" : "none",
 						}}
-						className="bg-gradient-to-r from-blue-800 via-indigo-800 to-violet-900"
+						className="bg-indigo-950 bg-[url('/triangles.png')]"
 					>
 						<AboutSection aboutData={pageData.about} />
 						<ExperienceSection experienceData={pageData.experience} />
@@ -110,6 +116,7 @@ export default function Main({ pageData }: Props) {
 						style={{
 							display: activePersona === "secondary" ? "block" : "none",
 						}}
+						className="bg-purple-950 bg-[url('/tasky.png')]"
 					>
 						<StreamingSection streamData={pageData.stream} />
 					</motion.div>

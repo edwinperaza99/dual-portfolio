@@ -67,7 +67,10 @@ export default function ContactSection({ contactData }: Props) {
 	}
 
 	return (
-		<section id="contact" className="py-20 relative overflow-hidden">
+		<section
+			id="contact"
+			className="py-20 relative overflow-hidden bg-[url('/subtle-dots.png')] bg-repeat"
+		>
 			<div className="container mx-auto px-4">
 				<div className="max-w-4xl mx-auto text-center mb-12">
 					{label && (
@@ -86,7 +89,7 @@ export default function ContactSection({ contactData }: Props) {
 				<div className="animate-cards grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
 					{/* Primary card */}
 					{primaryCard && (
-						<Card className="animate-card bg-gradient-to-br from-blue-900/40 to-blue-800/20 border-blue-500 overflow-hidden border-opacity-20 transition-all duration-300 hover:border-opacity-40 hover:shadow-lg hover:-translate-y-1 h-full">
+						<Card className="animate-card bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
 							<CardHeader>
 								<CardTitle className="text-white">
 									{primaryCard.title}
@@ -111,7 +114,7 @@ export default function ContactSection({ contactData }: Props) {
 					)}
 
 					{secondaryCard && (
-						<Card className="animate-card bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500 overflow-hidden border-opacity-20 transition-all duration-300 hover:border-opacity-40 hover:shadow-lg hover:-translate-y-1 h-full">
+						<Card className="animate-card bg-purple-900/30 border border-pink-500/20 rounded-lg p-6 transition-all duration-300 hover:border-pink-500/40 hover:shadow-lg hover:shadow-purple-900/20">
 							<CardHeader>
 								<CardTitle className="text-white">
 									{secondaryCard.title}
@@ -136,8 +139,8 @@ export default function ContactSection({ contactData }: Props) {
 					)}
 				</div>
 
-				<div className="max-w-4xl mx-auto mt-12">
-					<Card className="animate-card bg-gradient-to-br from-gray-900/40 to-gray-950/40 backdrop-blur-sm border-white/10 transition-all duration-300 hover:border-white/20 hover:shadow-lg hover:shadow-purple-900/10">
+				<div className="max-w-4xl mx-auto mt-8">
+					<Card className="bg-gray-950/30 border border-white/10 rounded-lg p-6 transition-all duration-300 hover:border-white/20 hover:shadow-lg hover:shadow-gray-800/30">
 						<CardHeader>
 							<CardTitle className="text-white">{formTitle}</CardTitle>
 							<CardDescription className="text-white/70">
