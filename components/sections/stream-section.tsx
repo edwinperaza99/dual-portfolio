@@ -179,7 +179,7 @@ export default function StreamingSection({ streamData }: Props) {
 												<Button
 													key={i}
 													asChild
-													className="w-full bg-gradient-to-r from-pink-600 to-purple-600 transition-colors duration-200 hover:from-pink-700 hover:to-purple-700 text-white"
+													className="w-full bg-pink-600 hover:bg-pink-700 text-white transition-colors duration-300 shadow hover:shadow-lg"
 												>
 													<a href={b.url}>{b.label}</a>
 												</Button>

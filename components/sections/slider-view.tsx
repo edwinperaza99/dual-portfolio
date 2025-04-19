@@ -90,10 +90,10 @@ export default function SliderView({
 		>
 			{/* Secondary Section */}
 			<div
-				className="absolute inset-0 z-0"
-				style={{
-					background: "linear-gradient(135deg, #0e0e10 0%, #772ce8 100%)",
-				}}
+				className="bg-purple-950 absolute inset-0 z-0 bg-[url('/skulls.png')] bg-repeat"
+				// style={{
+				// 	background: "linear-gradient(135deg, #0e0e10 0%, #772ce8 100%)",
+				// }}
 			>
 				<div className="h-screen flex items-center justify-center px-8 md:px-16">
 					<div className="max-w-xl">
@@ -110,7 +110,7 @@ export default function SliderView({
 							{secondary.primaryCTA?.url && (
 								<Button
 									asChild
-									className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white transition-colors duration-300"
+									className="bg-purple-600 hover:bg-purple-700 text-white transition-colors duration-300 shadow hover:shadow-lg"
 								>
 									<Link href={secondary.primaryCTA.url}>
 										{secondary.primaryCTA.label}
@@ -121,7 +121,7 @@ export default function SliderView({
 								<Button
 									asChild
 									variant="outline"
-									className="border border-pink-500 text-pink-300 hover:bg-purple-900/50 hover:border-pink-400 transition-colors duration-300"
+									className="border border-purple-500 text-purple-300 hover:bg-purple-900/50 hover:border-purple-400 transition-colors duration-300"
 								>
 									<Link href={secondary.secondaryCTA.url}>
 										{secondary.secondaryCTA.label}
@@ -166,9 +166,9 @@ export default function SliderView({
 
 			{/* Primary Section */}
 			<div
-				className="absolute inset-0 primary-layer z-20"
+				className="absolute bg-indigo-950 inset-0 primary-layer z-20 bg-[url('/skulls.png')] bg-repeat"
 				style={{
-					background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
+					// background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
 					clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
 					transition: isDragging ? "none" : "clip-path 0.5s ease-in-out",
 				}}
