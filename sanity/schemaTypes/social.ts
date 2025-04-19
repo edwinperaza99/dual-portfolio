@@ -4,7 +4,8 @@ export const social = defineType({
 	name: "social",
 	title: "Social Link",
 	type: "document",
-	description: "A single social link with an icon, display name, and URL.",
+	description:
+		"A single social link with an icon, display name, and URL. It is recommended to use all the icons from the same provider",
 	fields: [
 		defineField({
 			name: "internalName",

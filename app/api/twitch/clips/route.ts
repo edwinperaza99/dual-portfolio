@@ -53,7 +53,6 @@ export async function GET(req: Request) {
 		);
 
 		const clips = await clipsRes.json();
-		console.log("Clips response", clips);
 		return NextResponse.json(clips);
 	} catch (err) {
 		console.error(err);
