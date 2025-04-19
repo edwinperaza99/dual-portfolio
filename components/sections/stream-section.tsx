@@ -11,7 +11,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { DynamicIcon } from "@/lib/dynamic-icon";
 import { StreamSectionType } from "@/lib/types";
 import MarqueeBlock from "@/components/ui/Marquee";
-import { ClipList, TwitchEmbed } from "@/components/ui/twitch-embed";
+import { ClipList, EmoteList, TwitchEmbed } from "@/components/ui/twitch-embed";
 
 interface Props {
 	streamData: StreamSectionType;
@@ -213,6 +213,11 @@ export default function StreamingSection({ streamData }: Props) {
 											))}
 										</CardContent>
 									</Card>
+								)}
+								{channelName && (
+									<div className="mt-8">
+										<EmoteList channel={channelName} />
+									</div>
 								)}
 							</motion.div>
 						</div>

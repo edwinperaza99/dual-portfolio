@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Image from "next/image";
 
 interface Props {
 	channel: string;
@@ -141,5 +149,67 @@ export function ClipList({
 				</div>
 			))}
 		</div>
+	);
+}
+
+interface Emote {
+	id: string;
+	name: string;
+	images: {
+		url_1x: string;
+		url_2x: string;
+		url_4x: string;
+	};
+}
+
+export function EmoteList({ channel }: { channel: string }) {
+	const [emotes, setEmotes] = useState<Emote[]>([]);
+
+	useEffect(() => {
+		const fetchEmotes = async () => {
+			const res = await fetch(`/api/twitch/emotes?channel=${channel}`);
+			const data = await res.json();
+			setEmotes(data.data || []);
+		};
+		fetchEmotes();
+	}, [channel]);
+
+	if (!emotes.length) return null;
+
+	return (
+		<Card className="gap-0 py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border border-pink-500/20">
+			<CardHeader className="bg-purple-900/50 py-6 gap-0">
+				<CardTitle className="text-white flex items-center gap-2">
+					🎭 Emotes
+				</CardTitle>
+			</CardHeader>
+			<CardContent className="p-4">
+				<TooltipProvider delayDuration={100}>
+					<div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+						{emotes.map((emote) => (
+							<Tooltip key={emote.id}>
+								<TooltipTrigger asChild>
+									<div className="flex items-center justify-center">
+										<Image
+											src={emote.images.url_1x}
+											alt={emote.name}
+											className="h-10 w-10 p-0.5 rounded-md shadow"
+											width={32}
+											height={32}
+										/>
+									</div>
+								</TooltipTrigger>
+								<TooltipContent
+									side="top"
+									className="bg-purple-600/90 text-white border-4 border-purple-500/20 rounded-lg p-2 shadow-lg"
+								>
+									{emote.name}
+								</TooltipContent>
+							</Tooltip>
+						))}
+					</div>
+				</TooltipProvider>
+			</CardContent>
+		</Card>
 	);
 }
