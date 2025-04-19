@@ -27,4 +27,5 @@ export default defineConfig({
 		visionTool({ defaultApiVersion: apiVersion }),
 		iconPicker(),
 	],
+	name: "Dual-Portfolio-Studio",
 });
