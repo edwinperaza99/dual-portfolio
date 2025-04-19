@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -41,7 +42,6 @@ export default function ContactSection({ contactData }: Props) {
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 
-		// Append the required access key for Web3Forms
 		formData.append("access_key", accessToken);
 
 		try {
@@ -72,7 +72,13 @@ export default function ContactSection({ contactData }: Props) {
 			className="py-20 relative overflow-hidden bg-[url('/subtle-dots.png')] bg-repeat"
 		>
 			<div className="container mx-auto px-4">
-				<div className="max-w-4xl mx-auto text-center mb-12">
+				<motion.div
+					className="max-w-4xl mx-auto text-center mb-12"
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					viewport={{ once: true }}
+				>
 					{label && (
 						<span className="inline-block rounded-lg bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-white/20 px-3 py-1 text-sm mb-4">
 							{label}
@@ -84,62 +90,81 @@ export default function ContactSection({ contactData }: Props) {
 					{description && (
 						<p className="text-white/70 max-w-2xl mx-auto">{description}</p>
 					)}
-				</div>
+				</motion.div>
 
-				<div className="animate-cards grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-					{/* Primary card */}
+				<div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
 					{primaryCard && (
-						<Card className="animate-card bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
-							<CardHeader>
-								<CardTitle className="text-white">
-									{primaryCard.title}
-								</CardTitle>
-								<CardDescription className="text-white/80">
-									{primaryCard.subtitle}
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="space-y-4">
-								{primaryCard.contactInfo?.map((item, i) => {
-									if (!item) return null;
-									const Icon = DynamicIcon(item.icon);
-									return (
-										<div key={i} className="flex items-center gap-3">
-											{Icon && <Icon className="h-4 w-4 text-blue-400" />}
-											<span className="text-white/90">{item.value}</span>
-										</div>
-									);
-								})}
-							</CardContent>
-						</Card>
+						<motion.div
+							initial={{ opacity: 0, x: -40 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.5, ease: "easeOut" }}
+							viewport={{ once: true }}
+						>
+							<Card className="h-full bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
+								<CardHeader>
+									<CardTitle className="text-white">
+										{primaryCard.title}
+									</CardTitle>
+									<CardDescription className="text-white/80">
+										{primaryCard.subtitle}
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									{primaryCard.contactInfo?.map((item, i) => {
+										if (!item) return null;
+										const Icon = DynamicIcon(item.icon);
+										return (
+											<div key={i} className="flex items-center gap-3">
+												{Icon && <Icon className="h-4 w-4 text-blue-400" />}
+												<span className="text-white/90">{item.value}</span>
+											</div>
+										);
+									})}
+								</CardContent>
+							</Card>
+						</motion.div>
 					)}
 
 					{secondaryCard && (
-						<Card className="animate-card bg-purple-900/30 border border-pink-500/20 rounded-lg p-6 transition-all duration-300 hover:border-pink-500/40 hover:shadow-lg hover:shadow-purple-900/20">
-							<CardHeader>
-								<CardTitle className="text-white">
-									{secondaryCard.title}
-								</CardTitle>
-								<CardDescription className="text-white/80">
-									{secondaryCard.subtitle}
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="space-y-4">
-								{secondaryCard.contactInfo?.map((item, i) => {
-									if (!item) return null;
-									const Icon = DynamicIcon(item.icon);
-									return (
-										<div key={i} className="flex items-center gap-3">
-											{Icon && <Icon className="h-5 w-5 text-pink-400" />}
-											<span className="text-white/90">{item.value}</span>
-										</div>
-									);
-								})}
-							</CardContent>
-						</Card>
+						<motion.div
+							initial={{ opacity: 0, x: 40 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+							viewport={{ once: true }}
+						>
+							<Card className="h-full bg-purple-900/30 border border-pink-500/20 rounded-lg p-6 transition-all duration-300 hover:border-pink-500/40 hover:shadow-lg hover:shadow-purple-900/20">
+								<CardHeader>
+									<CardTitle className="text-white">
+										{secondaryCard.title}
+									</CardTitle>
+									<CardDescription className="text-white/80">
+										{secondaryCard.subtitle}
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="space-y-4">
+									{secondaryCard.contactInfo?.map((item, i) => {
+										if (!item) return null;
+										const Icon = DynamicIcon(item.icon);
+										return (
+											<div key={i} className="flex items-center gap-3">
+												{Icon && <Icon className="h-5 w-5 text-pink-400" />}
+												<span className="text-white/90">{item.value}</span>
+											</div>
+										);
+									})}
+								</CardContent>
+							</Card>
+						</motion.div>
 					)}
 				</div>
 
-				<div className="max-w-4xl mx-auto mt-8">
+				<motion.div
+					className="max-w-4xl mx-auto mt-8"
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+					viewport={{ once: true }}
+				>
 					<Card className="bg-gray-950/30 border border-white/10 rounded-lg p-6 transition-all duration-300 hover:border-white/20 hover:shadow-lg hover:shadow-gray-800/30">
 						<CardHeader>
 							<CardTitle className="text-white">{formTitle}</CardTitle>
@@ -150,7 +175,6 @@ export default function ContactSection({ contactData }: Props) {
 
 						<CardContent>
 							<form onSubmit={handleSubmit} className="grid gap-6">
-								{/* First / Last name */}
 								<div className="grid gap-4 md:grid-cols-2">
 									<div className="space-y-1">
 										<Label
@@ -184,7 +208,6 @@ export default function ContactSection({ contactData }: Props) {
 									</div>
 								</div>
 
-								{/* Email */}
 								<div className="space-y-1">
 									<Label
 										htmlFor="email"
@@ -202,7 +225,6 @@ export default function ContactSection({ contactData }: Props) {
 									/>
 								</div>
 
-								{/* Subject */}
 								<div className="space-y-1">
 									<Label
 										htmlFor="subject"
@@ -219,7 +241,6 @@ export default function ContactSection({ contactData }: Props) {
 									/>
 								</div>
 
-								{/* Message */}
 								<div className="space-y-1">
 									<Label
 										htmlFor="message"
@@ -236,7 +257,6 @@ export default function ContactSection({ contactData }: Props) {
 									/>
 								</div>
 
-								{/* Hidden botcheck field */}
 								<label htmlFor="botcheck" className="sr-only">
 									Botcheck, do not fill this out
 								</label>
@@ -259,7 +279,7 @@ export default function ContactSection({ contactData }: Props) {
 							</form>
 						</CardContent>
 					</Card>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);

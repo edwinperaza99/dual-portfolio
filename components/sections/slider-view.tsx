@@ -155,7 +155,7 @@ export default function SliderView({
 					aria-label="Scroll to About"
 				>
 					<DotLottieReact
-						src="https://lottie.host/4ccec20d-7448-4a90-b486-e4a06925ae55/wI9rHhTLPW.lottie"
+						src="https://lottie.host/c4495f9a-868f-4cb1-9d6c-f2a291f767c1/i2tUMYCVlh.lottie"
 						loop
 						autoplay
 						className="w-24 h-24"
@@ -232,7 +232,7 @@ export default function SliderView({
 					aria-label="Scroll to About"
 				>
 					<DotLottieReact
-						src="https://lottie.host/38924ef0-6d5f-4867-a732-b9599327fde7/0GzyzWsbtS.lottie"
+						src="https://lottie.host/949e8af6-087a-4cd3-8ce8-491733b6ce1c/PmenX962N7.lottie"
 						loop
 						autoplay
 						className="w-24 h-24"

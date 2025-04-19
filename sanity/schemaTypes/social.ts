@@ -37,7 +37,7 @@ export const social = defineType({
 			type: "url",
 			description:
 				"The URL to the social media profile or page. Must be a valid URL including 'https://'.",
-			validation: (Rule) => Rule.required(),
+			validation: (Rule) => Rule.uri({ allowRelative: true }).required(),
 		}),
 	],
 	preview: {
