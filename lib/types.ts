@@ -82,6 +82,7 @@ export type Persona = {
 	title: string;
 	name: string;
 	tagline?: string;
+	image: ImageData;
 	primaryCTA?: CTA;
 	secondaryCTA?: CTA;
 	socialLinks?: SocialLink[];
@@ -207,3 +208,11 @@ export type NavBarType = {
 	secondaryName: string;
 	secondaryIcon: IconPicker;
 };
+
+export interface ImageData {
+	asset: {
+		_id: string;
+		url: string;
+	};
+	alt?: string;
+}

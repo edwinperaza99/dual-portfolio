@@ -116,6 +116,7 @@ export async function getHeroSection(): Promise<HeroSectionType> {
     title,
     name,
     tagline,
+    image { asset->{url} },
     primaryCTA,
     secondaryCTA,
     "socialLinks": socialLinks[]->{
@@ -128,6 +129,7 @@ export async function getHeroSection(): Promise<HeroSectionType> {
     title,
     name,
     tagline,
+    image { asset->{url} },
     primaryCTA,
     secondaryCTA,
     "socialLinks": socialLinks[]->{

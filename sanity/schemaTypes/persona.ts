@@ -12,6 +12,13 @@ export const persona = defineType({
 			description: "Title for the persona section. (e.g., 'SysAdmin')",
 		}),
 		defineField({
+			name: "image",
+			type: "image",
+			title: "Persona Profile Pic",
+			description: "Profile pic for the slider section",
+			options: { hotspot: true },
+		}),
+		defineField({
 			name: "name",
 			title: "Name",
 			type: "string",
