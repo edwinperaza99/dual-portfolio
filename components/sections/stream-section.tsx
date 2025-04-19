@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import { motion } from "framer-motion"; // added
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,17 +40,35 @@ export default function StreamingSection({ streamData }: Props) {
 				<div className="container mx-auto px-4">
 					<div className="max-w-4xl mx-auto">
 						{/* header */}
-						<SectionHeader badge={badge} title={title} gradient="secondary" />
+						<motion.div
+							initial={{ opacity: 0, y: -20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5 }}
+							viewport={{ once: true }}
+						>
+							<SectionHeader badge={badge} title={title} gradient="secondary" />
+						</motion.div>
 
 						{/* Twitch hero placeholder */}
 						{channelName && (
-							<div className="relative overflow-hidden rounded-xl border border-pink-500/30 mb-12 mt-12 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg">
+							<motion.div
+								className="relative overflow-hidden rounded-xl border border-pink-500/30 mb-12 mt-12 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg"
+								initial={{ opacity: 0, scale: 0.95 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								transition={{ duration: 0.6 }}
+								viewport={{ once: true }}
+							>
 								<TwitchEmbed channel={channelName} />
-							</div>
+							</motion.div>
 						)}
 
 						<div className="grid md:grid-cols-[2fr_1fr] gap-8 mt-12">
-							<div>
+							<motion.div
+								initial={{ opacity: 0, x: -30 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.5 }}
+								viewport={{ once: true }}
+							>
 								{/* paragraphs */}
 								<div className="prose max-w-none text-pink-100">
 									<PortableText value={paragraphs} />
@@ -93,10 +114,16 @@ export default function StreamingSection({ streamData }: Props) {
 										<ClipList limit={3} channel={channelName} />
 									</div>
 								)}
-							</div>
+							</motion.div>
 
 							{/* sidebar */}
-							<div className="space-y-6">
+							<motion.div
+								className="space-y-6"
+								initial={{ opacity: 0, x: 30 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.5, delay: 0.1 }}
+								viewport={{ once: true }}
+							>
 								{/* schedule */}
 								{schedule && (
 									<Card className="gap-0 py-0 bg-gradient-to-br from-purple-900/40 to-purple-800/20 border-pink-500/20 overflow-hidden transition-border transition-shadow duration-300 hover:border-pink-500/40 hover:shadow-lg">
@@ -187,7 +214,7 @@ export default function StreamingSection({ streamData }: Props) {
 										</CardContent>
 									</Card>
 								)}
-							</div>
+							</motion.div>
 						</div>
 					</div>
 				</div>

@@ -3,6 +3,7 @@
 import { SectionHeader } from "@/components/ui/section-header";
 import { Badge } from "@/components/ui/badge";
 import { DynamicIcon } from "@/lib/dynamic-icon";
+import { motion } from "framer-motion";
 
 import type { SkillsSection as SkillsSectionType } from "@/lib/types";
 
@@ -44,15 +45,19 @@ export default function SkillsSection({ skillsData }: Props) {
 												: null;
 
 											return (
-												<Badge
+												<motion.div
 													key={i}
-													className="bg-blue-600/40 hover:bg-blue-600/60 text-white border border-blue-400/20 px-3 py-1 transition-all duration-200"
+													initial={{ opacity: 0, scale: 0.9 }}
+													whileInView={{ opacity: 1, scale: 1 }}
+													transition={{ duration: 0.3, delay: i * 0.05 }}
 												>
-													{SkillIcon && (
-														<SkillIcon className="h-4 w-4 inline-block mr-2" />
-													)}
-													{skill.skillName}
-												</Badge>
+													<Badge className="bg-blue-600/40 hover:bg-blue-600/60 text-white border border-blue-400/20 px-3 py-1 transition-all duration-200">
+														{SkillIcon && (
+															<SkillIcon className="h-4 w-4 inline-block mr-2" />
+														)}
+														{skill.skillName}
+													</Badge>
+												</motion.div>
 											);
 										})}
 									</div>

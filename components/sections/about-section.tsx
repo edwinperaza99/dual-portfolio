@@ -1,10 +1,12 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { AboutSectionType } from "@/lib/types";
 import components from "@/components/portable-text-component";
 import { DynamicIcon } from "@/lib/dynamic-icon";
-
 import { PortableText } from "@portabletext/react";
 
 interface Props {
@@ -23,9 +25,15 @@ export default function AboutSection({ aboutData }: Props) {
 					/>
 
 					{/* main layout */}
-					<div className="animate-cards grid md:grid-cols-[2fr_1fr] gap-8 mt-12">
+					<div className="grid md:grid-cols-[2fr_1fr] gap-8 mt-12">
 						{/* left column ------------------------------------------------ */}
-						<div className="animate-card space-y-6">
+						<motion.div
+							className="space-y-6"
+							initial={{ opacity: 0, x: -50 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.6, ease: "easeOut" }}
+							viewport={{ once: true }}
+						>
 							{aboutData.paragraphs && (
 								<PortableText
 									value={aboutData.paragraphs}
@@ -58,11 +66,17 @@ export default function AboutSection({ aboutData }: Props) {
 									})}
 								</div>
 							)}
-						</div>
+						</motion.div>
 
 						{/* right column (summary card) ------------------------------- */}
 						{aboutData.summaryCard && (
-							<div className="animate-card bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 h-fit transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20">
+							<motion.div
+								className="bg-blue-900/30 border border-blue-500/20 rounded-lg p-6 h-fit transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/20"
+								initial={{ opacity: 0, x: 50 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+								viewport={{ once: true }}
+							>
 								{aboutData.summaryCard.title && (
 									<h3 className="text-xl font-bold mb-4 text-blue-200">
 										{aboutData.summaryCard.title}
@@ -104,7 +118,7 @@ export default function AboutSection({ aboutData }: Props) {
 										</div>
 									</div>
 								)}
-							</div>
+							</motion.div>
 						)}
 					</div>
 				</div>

@@ -95,7 +95,7 @@ export function VODList({
 						src={`https://player.twitch.tv/?video=${vod.id}&parent=${window.location.hostname}`}
 						title={`Recent Twitch VOD #${i}`}
 						allowFullScreen
-						className="w-full h-full rounded-lg border border-pink-500/30"
+						className="w-full h-full relative overflow-hidden rounded-xl border border-pink-500/30 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg"
 						loading="eager"
 					/>
 				</div>
@@ -134,7 +134,7 @@ export function ClipList({
 					<iframe
 						src={`https://clips.twitch.tv/embed?clip=${clip.id}&parent=${window.location.hostname}`}
 						allowFullScreen
-						className="w-full h-full rounded-lg border  border-pink-500/30"
+						className="w-full h-full relative overflow-hidden rounded-xl border border-pink-500/30 transition-border transition-shadow duration-300 hover:border-pink-500/50 hover:shadow-lg"
 						title={`Twitch Clip: ${i}`}
 						loading="eager"
 					/>
