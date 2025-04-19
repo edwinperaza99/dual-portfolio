@@ -27,6 +27,8 @@ export default async function Footer() {
 									<Link
 										key={i}
 										href={link.link}
+										target="_blank"
+										rel="noopener noreferrer"
 										className="text-white/60 hover:text-primary transition-colors"
 										aria-label={link.displayName}
 									>

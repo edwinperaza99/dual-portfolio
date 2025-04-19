@@ -2,16 +2,13 @@
 
 import type React from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { DynamicIcon } from "@/lib/dynamic-icon";
 import { HeroSectionType } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
-// Update the SliderView component to work with the header buttons
-
-// Add props for the sliderPositionRef and onSliderChange
 interface SliderViewProps {
 	sliderPositionRef?: React.RefObject<number>;
 	onSliderChange?: (position: number) => void;
@@ -24,64 +21,35 @@ export default function SliderView({
 	heroData,
 }: SliderViewProps) {
 	const { primary, secondary } = heroData;
-	// Use the ref value if provided, otherwise use the default
 	const [sliderPosition, setSliderPosition] = useState(
 		sliderPositionRef?.current || 0
 	);
 	const [isDragging, setIsDragging] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	// Handle mouse/touch events for slider
 	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
 		setIsDragging(true);
-		// Prevent text selection during dragging
 		e.preventDefault();
 		document.body.classList.add("slider-dragging");
 	};
 
-	// No need since we are using the global mouseup event
-	// const handleMouseUp = () => {
-	// 	setIsDragging(false);
-	// 	document.body.classList.remove("slider-dragging");
-	// };
-
-	// Update the handleMouseMove function to call onSliderChange
 	const handleMouseMove = (
 		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
 	) => {
 		if (!isDragging || !containerRef.current) return;
 
-		let clientX: number;
-
-		if ("touches" in e) {
-			// Touch event
-			clientX = e.touches[0].clientX;
-		} else {
-			// Mouse event
-			clientX = e.clientX;
-		}
-
+		const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
 		const rect = containerRef.current.getBoundingClientRect();
 		const containerWidth = rect.width;
 		const relativeX = clientX - rect.left;
 		const newPosition = (relativeX / containerWidth) * 100;
-
-		// Allow full range from 0 to 100
 		const position = Math.min(Math.max(newPosition, 0), 100);
 		setSliderPosition(position);
 
-		// Update the ref if provided
-		if (sliderPositionRef) {
-			sliderPositionRef.current = position;
-		}
-
-		// Call the callback if provided
-		if (onSliderChange) {
-			onSliderChange(position);
-		}
+		if (sliderPositionRef) sliderPositionRef.current = position;
+		if (onSliderChange) onSliderChange(position);
 	};
 
-	// Add event listeners for mouse/touch events
 	useEffect(() => {
 		const handleGlobalMouseUp = () => {
 			if (isDragging) {
@@ -100,7 +68,6 @@ export default function SliderView({
 		};
 	}, [isDragging]);
 
-	// Add effect to update slider position when ref changes
 	useEffect(() => {
 		if (sliderPositionRef) {
 			const updatePosition = () => {
@@ -108,18 +75,12 @@ export default function SliderView({
 					setSliderPosition(sliderPositionRef.current);
 				}
 			};
-
-			// Update immediately
 			updatePosition();
-
-			// Also set up an interval to check for changes
 			const interval = setInterval(updatePosition, 100);
-
 			return () => clearInterval(interval);
 		}
 	}, [sliderPosition, sliderPositionRef]);
 
-	// Replace the return statement with this improved version
 	return (
 		<div
 			ref={containerRef}
@@ -127,9 +88,7 @@ export default function SliderView({
 			onMouseMove={handleMouseMove}
 			onTouchMove={handleMouseMove}
 		>
-			{/* Stacked content containers */}
-
-			{/* Secondary (streamer) side (bottom layer) */}
+			{/* Secondary Section */}
 			<div
 				className="absolute inset-0 z-0"
 				style={{
@@ -148,14 +107,29 @@ export default function SliderView({
 						</h1>
 						<p className="text-lg text-pink-100 mb-6">{secondary.tagline}</p>
 						<div className="flex gap-4 mb-8">
-							<button className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white border-none transition-all duration-300 hover:shadow-lg hover:shadow-purple-900/30 hover:translate-y-[-2px] px-4 py-2 rounded-md">
-								{secondary.primaryCTA?.label}
-							</button>
-							<button className="border border-pink-500 text-pink-300 hover:bg-purple-900/50 transition-all duration-300 hover:border-pink-400 px-4 py-2 rounded-md">
-								{secondary.secondaryCTA?.label}
-							</button>
+							{secondary.primaryCTA?.url && (
+								<Button
+									asChild
+									className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white transition-colors duration-300"
+								>
+									<Link href={secondary.primaryCTA.url}>
+										{secondary.primaryCTA.label}
+									</Link>
+								</Button>
+							)}
+							{secondary.secondaryCTA?.url && (
+								<Button
+									asChild
+									variant="outline"
+									className="border border-pink-500 text-pink-300 hover:bg-purple-900/50 hover:border-pink-400 transition-colors duration-300"
+								>
+									<Link href={secondary.secondaryCTA.url}>
+										{secondary.secondaryCTA.label}
+									</Link>
+								</Button>
+							)}
 						</div>
-						{secondary.socialLinks && secondary.socialLinks.length > 0 && (
+						{secondary.socialLinks && secondary.socialLinks?.length > 0 && (
 							<div className="flex items-center gap-4">
 								{secondary.socialLinks.map((link, i) => {
 									const Icon = DynamicIcon(link.icon);
@@ -163,7 +137,9 @@ export default function SliderView({
 										<Link
 											key={i}
 											href={link.link}
-											className="text-white/60 hover:text-primary transition-colors"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-white/60 hover:text-pink-400 transition-colors"
 											aria-label={link.displayName}
 										>
 											<Icon className="h-5 w-5" />
@@ -188,13 +164,13 @@ export default function SliderView({
 				</Link>
 			</div>
 
-			{/* Primary (sysadmin) side (top layer with clip path) */}
+			{/* Primary Section */}
 			<div
 				className="absolute inset-0 primary-layer z-20"
 				style={{
 					background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
-					clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`, // This clips the right side
-					transition: isDragging ? "none" : "clip-path 0.5s ease-in-out", // Add smooth transition when not dragging
+					clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+					transition: isDragging ? "none" : "clip-path 0.5s ease-in-out",
 				}}
 			>
 				<div className="h-screen flex items-center justify-center px-8 md:px-16">
@@ -209,14 +185,29 @@ export default function SliderView({
 						</h1>
 						<p className="text-lg text-blue-100 mb-6">{primary.tagline}</p>
 						<div className="flex gap-4 mb-8">
-							<button className="bg-blue-600 hover:bg-blue-700 text-white border-none transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/30 hover:translate-y-[-2px] px-4 py-2 rounded-md">
-								{primary.primaryCTA?.label}
-							</button>
-							<button className="border border-blue-500 text-blue-300 hover:bg-blue-900/50 transition-all duration-300 hover:border-blue-400 px-4 py-2 rounded-md">
-								{primary.secondaryCTA?.label}
-							</button>
+							{primary.primaryCTA?.url && (
+								<Button
+									asChild
+									className="bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-300"
+								>
+									<Link href={primary.primaryCTA.url}>
+										{primary.primaryCTA.label}
+									</Link>
+								</Button>
+							)}
+							{primary.secondaryCTA?.url && (
+								<Button
+									asChild
+									variant="outline"
+									className="border border-blue-500 text-blue-300 hover:bg-blue-900/50 hover:border-blue-400 transition-colors duration-300"
+								>
+									<Link href={primary.secondaryCTA.url}>
+										{primary.secondaryCTA.label}
+									</Link>
+								</Button>
+							)}
 						</div>
-						{primary.socialLinks && primary.socialLinks.length > 0 && (
+						{primary.socialLinks && primary.socialLinks?.length > 0 && (
 							<div className="flex items-center gap-4">
 								{primary.socialLinks.map((link, i) => {
 									const Icon = DynamicIcon(link.icon);
@@ -224,7 +215,9 @@ export default function SliderView({
 										<Link
 											key={i}
 											href={link.link}
-											className="text-white/60 hover:text-primary transition-colors"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-white/60 hover:text-cyan-400 transition-colors"
 											aria-label={link.displayName}
 										>
 											<Icon className="h-5 w-5" />
@@ -249,13 +242,13 @@ export default function SliderView({
 				</Link>
 			</div>
 
-			{/* slider handle */}
+			{/* Slider Handle */}
 			<div
-				className="absolute top-0 bottom-0 w-0.5 bg-white/80 cursor-ew-resize z-30 backdrop-blur-sm slider-handle"
+				className="absolute top-0 bottom-0 w-0.5 bg-white/80 cursor-ew-resize z-30 backdrop-blur-sm"
 				style={{
 					left: `${sliderPosition}%`,
 					boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-					transition: isDragging ? "none" : "left 0.5s ease-in-out", // Add smooth transition when not dragging
+					transition: isDragging ? "none" : "left 0.5s ease-in-out",
 				}}
 				onMouseDown={handleMouseDown}
 				onTouchStart={handleMouseDown}
