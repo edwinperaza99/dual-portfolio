@@ -8,6 +8,7 @@ import {
 	AboutSectionType,
 	ContactSectionType,
 	StreamSectionType,
+	NavBarType,
 } from "@/lib/types";
 import { client } from "@/sanity/lib/client";
 
@@ -233,5 +234,14 @@ export async function getStreamSection(): Promise<StreamSectionType> {
       secondaryText
     }
   }
+}`);
+}
+
+export async function getNavBarData(): Promise<NavBarType> {
+	return sanityFetch<NavBarType>(`*[_type == "navbar"][0]{
+  primaryName,
+  primaryIcon,
+  secondaryName,
+  secondaryIcon
 }`);
 }

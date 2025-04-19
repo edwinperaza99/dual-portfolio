@@ -16,6 +16,7 @@ import {
 	SkillsSection as SkillsSectionType,
 	ContactSectionType,
 	StreamSectionType,
+	NavBarType,
 } from "@/lib/types";
 
 type Props = {
@@ -26,6 +27,7 @@ type Props = {
 		about: AboutSectionType;
 		contact: ContactSectionType;
 		stream: StreamSectionType;
+		navBar: NavBarType;
 	};
 };
 
@@ -74,6 +76,7 @@ export default function Main({ pageData }: Props) {
 			<NavBar
 				activePersona={activePersona}
 				setActivePersona={handlePersonaChange}
+				navBarData={pageData.navBar}
 			/>
 
 			<main>

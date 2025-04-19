@@ -2,50 +2,54 @@ import { defineField, defineType } from "sanity";
 
 export const navBar = defineType({
 	name: "navbar",
-	title: "Navbar",
+	title: "Navigation Bar",
+	description: "Configure the navigation bar of your portfolio.",
 	type: "document",
-	description:
-		"Settings for the navigation bar. For better styling set at least title or logo.",
 	fields: [
 		defineField({
-			name: "websiteTitle",
-			title: "Website Title",
+			name: "primaryName",
+			title: "Primary Persona Label",
 			type: "string",
-			description: "The title of your website.",
-		}),
-		defineField({
-			name: "logo",
-			title: "Logo",
-			type: "image",
-			options: { hotspot: true },
-			description: "Upload your logo image.",
-		}),
-		defineField({
-			name: "buttonOneTitle",
-			title: "Button 1 Title",
-			type: "string",
-			description: "Title for the first navigation button. (e.g. 'SysAdmin')",
+			description: "Displayed label for the primary persona (e.g. 'SysAdmin')",
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			name: "buttonTwoTitle",
-			title: "Button 2 Title",
+			name: "primaryIcon",
+			title: "Primary Persona Icon",
+			type: "iconPicker",
+			options: {
+				outputFormat: "react",
+				providers: ["fa", "hi", "fi", "si"],
+			},
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
+			name: "secondaryName",
+			title: "Secondary Persona Label",
 			type: "string",
-			description: "Title for the second navigation button. (e.g. 'Streamer')",
+			description:
+				"Displayed label for the secondary persona (e.g. 'Streamer')",
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
+			name: "secondaryIcon",
+			title: "Secondary Persona Icon",
+			type: "iconPicker",
+			options: {
+				outputFormat: "react",
+				providers: ["fa", "hi", "fi", "si"],
+			},
 			validation: (Rule) => Rule.required(),
 		}),
 	],
 	preview: {
 		select: {
-			websiteTitle: "websiteTitle",
-			buttonOneTitle: "buttonOneTitle",
-			buttonTwoTitle: "buttonTwoTitle",
+			primary: "primaryName",
+			secondary: "secondaryName",
 		},
-		prepare(selection) {
-			const { websiteTitle, buttonOneTitle, buttonTwoTitle } = selection;
+		prepare({ primary, secondary }) {
 			return {
-				title: websiteTitle,
-				subtitle: `${buttonOneTitle}, ${buttonTwoTitle}`,
+				title: `Toggle: ${primary} vs ${secondary}`,
 			};
 		},
 	},

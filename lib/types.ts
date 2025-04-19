@@ -200,3 +200,10 @@ export interface StreamSectionType {
 
 	marquee?: MarqueeType;
 }
+
+export type NavBarType = {
+	primaryName: string;
+	primaryIcon: IconPicker;
+	secondaryName: string;
+	secondaryIcon: IconPicker;
+};
