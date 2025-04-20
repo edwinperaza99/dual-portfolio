@@ -17,7 +17,6 @@ interface SliderViewProps {
 	heroData: HeroSectionType;
 }
 
-// ✅ Moved outside so it doesn't reset on re-render
 function SectionContent({
 	variant,
 	data,
