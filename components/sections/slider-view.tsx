@@ -2,7 +2,8 @@
 
 import type React from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { DynamicIcon } from "@/lib/dynamic-icon";
@@ -16,85 +17,34 @@ interface SliderViewProps {
 	heroData: HeroSectionType;
 }
 
-export default function SliderView({
-	sliderPositionRef,
-	onSliderChange,
-	heroData,
-}: SliderViewProps) {
-	const { primary, secondary } = heroData;
-	const [sliderPosition, setSliderPosition] = useState(
-		sliderPositionRef?.current || 0
-	);
-	const [isDragging, setIsDragging] = useState(false);
-	const containerRef = useRef<HTMLDivElement>(null);
-
-	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
-		setIsDragging(true);
-		e.preventDefault();
-		document.body.classList.add("slider-dragging");
-	};
-
-	const handleMouseMove = (
-		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-	) => {
-		if (!isDragging || !containerRef.current) return;
-
-		const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-		const rect = containerRef.current.getBoundingClientRect();
-		const containerWidth = rect.width;
-		const relativeX = clientX - rect.left;
-		const newPosition = (relativeX / containerWidth) * 100;
-		const position = Math.min(Math.max(newPosition, 0), 100);
-		setSliderPosition(position);
-
-		if (sliderPositionRef) sliderPositionRef.current = position;
-		if (onSliderChange) onSliderChange(position);
-	};
+// ✅ Moved outside so it doesn't reset on re-render
+function SectionContent({
+	variant,
+	data,
+	scrollLottie,
+}: {
+	variant: "primary" | "secondary";
+	data: HeroSectionType["primary"];
+	scrollLottie: string;
+}) {
+	const hasAnimated = useRef(false);
+	const [shouldAnimate, setShouldAnimate] = useState(!hasAnimated.current);
 
 	useEffect(() => {
-		const handleGlobalMouseUp = () => {
-			if (isDragging) {
-				setIsDragging(false);
-				document.body.classList.remove("slider-dragging");
-			}
-		};
+		hasAnimated.current = true;
+		setShouldAnimate(false);
+	}, []);
 
-		window.addEventListener("mouseup", handleGlobalMouseUp);
-		window.addEventListener("touchend", handleGlobalMouseUp);
-
-		return () => {
-			window.removeEventListener("mouseup", handleGlobalMouseUp);
-			window.removeEventListener("touchend", handleGlobalMouseUp);
-			document.body.classList.remove("slider-dragging");
-		};
-	}, [isDragging]);
-
-	useEffect(() => {
-		if (sliderPositionRef) {
-			const updatePosition = () => {
-				if (sliderPositionRef.current !== sliderPosition) {
-					setSliderPosition(sliderPositionRef.current);
-				}
-			};
-			updatePosition();
-			const interval = setInterval(updatePosition, 100);
-			return () => clearInterval(interval);
-		}
-	}, [sliderPosition, sliderPositionRef]);
-
-	const SectionContent = ({
-		variant,
-		data,
-		scrollLottie,
-	}: {
-		variant: "primary" | "secondary";
-		data: HeroSectionType["primary"];
-		scrollLottie: string;
-	}) => (
+	return (
 		<div className="h-screen flex items-center justify-center px-8 md:px-16">
-			<div className="max-w-5xl w-full flex flex-col-reverse md:flex-row items-center gap-10">
+			<motion.div
+				initial={shouldAnimate ? { opacity: 0 } : false}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.8, ease: "easeOut" }}
+				className="max-w-5xl w-full flex flex-col-reverse md:flex-row items-center gap-10"
+			>
 				{/* Text Column */}
-				<div>
+				<div className="w-full md:w-1/2 max-w-xl">
 					<div
 						className={`inline-block rounded-lg px-3 py-1 text-sm mb-4 ${
 							variant === "primary"
@@ -150,7 +100,7 @@ export default function SliderView({
 							</Button>
 						)}
 					</div>
-					{data.socialLinks && data.socialLinks?.length > 0 && (
+					{data.socialLinks && data.socialLinks.length > 0 && (
 						<div className="flex items-center gap-4">
 							{data.socialLinks.map((link, i) => {
 								const Icon = DynamicIcon(link.icon);
@@ -172,10 +122,10 @@ export default function SliderView({
 				</div>
 
 				{/* Image Column */}
-				<div className="flex justify-center md:justify-end">
+				<div className="w-full md:w-1/2 flex justify-center md:justify-end">
 					<HeroPhoto image={data.image} variant={variant} />
 				</div>
-			</div>
+			</motion.div>
 
 			<Link
 				href="#about"
@@ -191,13 +141,83 @@ export default function SliderView({
 			</Link>
 		</div>
 	);
+}
+
+export default function SliderView({
+	sliderPositionRef,
+	onSliderChange,
+	heroData,
+}: SliderViewProps) {
+	const { primary, secondary } = heroData;
+
+	const isDraggingRef = useRef(false);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const rootRef = useRef<HTMLDivElement>(null);
+
+	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+		isDraggingRef.current = true;
+		e.preventDefault();
+		document.body.classList.add("slider-dragging");
+	};
+
+	const handleMouseMove = (
+		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+	) => {
+		if (!isDraggingRef.current || !containerRef.current) return;
+
+		const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+		const rect = containerRef.current.getBoundingClientRect();
+		const containerWidth = rect.width;
+		const relativeX = clientX - rect.left;
+		const newPosition = (relativeX / containerWidth) * 100;
+		const position = Math.min(Math.max(newPosition, 0), 100);
+
+		if (rootRef.current) {
+			rootRef.current.style.setProperty("--slider-position", `${position}%`);
+		}
+		if (sliderPositionRef) sliderPositionRef.current = position;
+		if (onSliderChange) onSliderChange(position);
+	};
+
+	useEffect(() => {
+		const handleGlobalMouseUp = () => {
+			if (isDraggingRef.current) {
+				isDraggingRef.current = false;
+				document.body.classList.remove("slider-dragging");
+			}
+		};
+
+		window.addEventListener("mouseup", handleGlobalMouseUp);
+		window.addEventListener("touchend", handleGlobalMouseUp);
+
+		return () => {
+			window.removeEventListener("mouseup", handleGlobalMouseUp);
+			window.removeEventListener("touchend", handleGlobalMouseUp);
+			document.body.classList.remove("slider-dragging");
+		};
+	}, []);
+
+	useEffect(() => {
+		const position = sliderPositionRef?.current ?? 95;
+		if (rootRef.current) {
+			rootRef.current.style.setProperty("--slider-position", `${position}%`);
+		}
+	}, [sliderPositionRef]);
 
 	return (
 		<div
-			ref={containerRef}
+			ref={(el) => {
+				containerRef.current = el;
+				rootRef.current = el;
+			}}
 			className="relative min-h-screen overflow-hidden"
 			onMouseMove={handleMouseMove}
 			onTouchMove={handleMouseMove}
+			style={
+				{
+					"--slider-position": `${sliderPositionRef?.current ?? 95}%`,
+				} as React.CSSProperties
+			}
 		>
 			{/* Secondary Section */}
 			<div className="bg-purple-950 absolute inset-0 z-0 bg-[url('/skulls.png')] bg-repeat">
@@ -212,8 +232,7 @@ export default function SliderView({
 			<div
 				className="absolute bg-indigo-950 inset-0 primary-layer z-20 bg-[url('/skulls.png')] bg-repeat"
 				style={{
-					clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
-					transition: isDragging ? "none" : "clip-path 0.5s ease-in-out",
+					clipPath: `inset(0 calc(100% - var(--slider-position)) 0 0)`,
 				}}
 			>
 				<SectionContent
@@ -227,18 +246,13 @@ export default function SliderView({
 			<div
 				className="absolute top-0 bottom-0 w-0.5 bg-white/80 cursor-ew-resize z-30 backdrop-blur-sm"
 				style={{
-					left: `${sliderPosition}%`,
+					left: `var(--slider-position)`,
 					boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-					transition: isDragging ? "none" : "left 0.5s ease-in-out",
 				}}
 				onMouseDown={handleMouseDown}
 				onTouchStart={handleMouseDown}
 			>
-				<div
-					className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)] flex items-center justify-center cursor-ew-resize transition-transform duration-200 hover:scale-110"
-					onMouseDown={handleMouseDown}
-					onTouchStart={handleMouseDown}
-				>
+				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)] flex items-center justify-center cursor-ew-resize transition-transform duration-200 hover:scale-110">
 					<div className="flex items-center">
 						<ChevronLeft className="h-4 w-4 text-blue-600" />
 						<ChevronRight className="h-4 w-4 text-purple-600" />
