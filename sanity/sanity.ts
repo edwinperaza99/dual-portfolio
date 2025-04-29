@@ -1,14 +1,13 @@
-// import { createClient } from "next-sanity";
 import {
-	ExperienceSection,
-	SkillsSection,
-	SettingsSEO,
-	FooterData,
-	HeroSectionType,
 	AboutSectionType,
 	ContactSectionType,
-	StreamSectionType,
+	ExperienceSection,
+	FooterData,
+	HeroSectionType,
 	NavBarType,
+	SettingsSEO,
+	SkillsSection,
+	StreamSectionType,
 } from "@/lib/types";
 import { client } from "@/sanity/lib/client";
 
@@ -20,11 +19,14 @@ export function sanityFetch<
 	params?: Params,
 	options?: {
 		revalidate?: number | false;
+		tags?: string[];
 	}
 ): Promise<T> {
 	return client.fetch<T>(query, params ?? {}, {
-		// set to false to disable revalidation
-		next: { revalidate: options?.revalidate ?? 1 },
+		next: {
+			revalidate: options?.revalidate ?? false,
+			tags: options?.tags ?? ["global-sanity"],
+		},
 	});
 }
 
